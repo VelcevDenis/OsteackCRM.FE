@@ -1,0 +1,173 @@
+/* Registration Page Container */
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+}
+
+/* Registration Card */
+.shadow {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Heading */
+h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Input Fields */
+.mb-3 {
+  margin-bottom: 12px;
+}
+
+.mb-3 label {
+  font-weight: bold;
+  color: #333;
+}
+
+.mb-3 input {
+  width: 100%;
+  padding: 8px;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
+
+.mb-3 input:focus {
+  border-color: #2575fc;
+  outline: none;
+}
+
+/* Submit Button */
+button.btn {
+  background-color: #2575fc;
+  color: white;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button.btn:hover {
+  background-color: #1d63d4;
+}
+
+/* Error Message */
+.text-danger {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 8px;
+}
+
+/* Success Message */
+.text-success {
+  color: green;
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+/* Responsive Design */
+
+/* For tablets and smaller devices (portrait mode) */
+@media (max-width: 768px) {
+  .shadow {
+      padding: 15px;
+      width: 85%;
+  }
+
+  h2 {
+      font-size: 1.4rem;
+  }
+
+  .mb-3 input {
+      font-size: 0.85rem;
+      padding: 8px;
+  }
+
+  button.btn {
+      font-size: 0.85rem;
+      padding: 8px;
+  }
+}
+
+/* For mobile devices (portrait mode) */
+@media (max-width: 600px) {
+  .shadow {
+      padding: 10px;
+      width: 100%;
+  }
+
+  h2 {
+      font-size: 1.3rem;
+  }
+
+  .mb-3 input {
+      font-size: 0.8rem;
+      padding: 6px;
+  }
+
+  button.btn {
+      font-size: 0.8rem;
+      padding: 8px;
+  }
+
+  /* Adjusting margins for smaller screens */
+  .mb-3 {
+      margin-bottom: 10px;
+  }
+}
+
+/* Style for the navigation buttons */
+button.btn-light {
+  background-color: #f8f9fa;
+  border: 1px solid #ccc;
+  color: #333;
+}
+
+button.btn-light:hover {
+  background-color: #e2e6ea;
+}
+
+button.btn-primary {
+  background-color: #2575fc;
+  border: none;
+  color: white;
+}
+
+button.btn-primary:hover {
+  background-color: #1d63d4;
+}
+
+/* Ensure the form height stays consistent */
+.shadow {
+  min-height: 550px; /* Adjust to the largest step */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
