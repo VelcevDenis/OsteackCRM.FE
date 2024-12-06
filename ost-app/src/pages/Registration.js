@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import './css/registration.css'; // Import the custom CSS
+// import './css/registration.css'; // Import the custom CSS
 
 function Registration() {
     const [step, setStep] = useState(1);
@@ -61,7 +61,7 @@ function Registration() {
         <div className="container mt-5">
             <div className="row justify-content-center">
                 <div className="col-md-6 col-lg-4">
-                    <form onSubmit={handleRegistration} className="shadow p-4 border rounded bg-light">
+                    <form onSubmit={handleRegistration} className="shadow p-4 border rounded bg-light registration">
                         <h2 className="text-center">Register</h2>
                         {step === 1 ? (
                             <>

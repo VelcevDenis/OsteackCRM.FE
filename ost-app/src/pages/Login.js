@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import './css/login.css';
+// import './styles/login.css';
 
 export default function Login() {
     const [username, setUsername] = useState('');
@@ -42,7 +42,7 @@ export default function Login() {
             if (response.ok) {
                 const data = await response.json();
                 localStorage.setItem('token', data.access_token);
-                navigate('/protected');
+                navigate('/potencialClients');
             } else {
                 const errorData = await response.json();
                 setError(errorData.detail || 'Authentication failed!');
