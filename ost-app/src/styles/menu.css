@@ -140,3 +140,18 @@ a.sidebar-link:hover {
     transform: rotate(45deg);
     transition: all .2s ease-out;
 }
+
+/* Existing CSS */
+a.sidebar-link.active {
+    background-color: rgba(255, 255, 255, .1); /* Add a darker background for active link */
+    border-left: 3px solid #3b7ddd; /* Highlight the active link with a colored border */
+}
+
+a.sidebar-link.active i {
+    color: #3b7ddd; /* Change icon color for active link */
+}
+
+a.sidebar-link:hover {
+    background-color: rgba(255, 255, 255, .075);
+    border-left: 3px solid #3b7ddd;
+}

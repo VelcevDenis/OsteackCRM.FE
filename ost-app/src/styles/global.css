@@ -5,7 +5,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    /* background-image: url("../images/image.png")!important;  */
+    background-image: url("../images/image.png")!important;
     background-position: center !important;
     background-repeat: no-repeat !important;
     background-size: cover !important;
@@ -306,5 +306,89 @@ body {
   
 /*#endregion*/
 
-/*#region Menu */
+/*#region NotFound Page Container */
+.notfound-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url("../images/image.png") !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  font-family: Arial, sans-serif !important;
+}
+
+.notfound-card {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+}
+
+.notfound-card h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.notfound-card p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.error-message {
+  font-size: 1rem;
+  color: #ff0000;
+  margin-top: 10px;
+}
+
+.footer-links {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.footer-links .link-btn {
+  background: none;
+  color: #2575fc;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  margin: 0 10px;
+}
+
+.footer-links .link-btn:hover {
+  color: #1d63d4;
+}
+
+/* Responsive Design for NotFound Page */
+@media (max-width: 768px) {
+  .notfound-card {
+    padding: 30px;
+    width: 80%;
+  }
+
+  .notfound-card h2 {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .notfound-card {
+    padding: 20px;
+    width: 100%;
+  }
+
+  .notfound-card h2 {
+    font-size: 1.4rem;
+  }
+
+  .notfound-card p {
+    font-size: 0.9rem;
+  }
+}
 /*#endregion*/
