@@ -1,0 +1,13 @@
+{
+    "login": "Войти",
+    "username": "Имя пользователя",
+    "password": "Пароль",
+    "registration": "Регистрация",
+    "placeholder_username": "Введите ваше имя пользователя",
+    "placeholder_password": "Введите ваш пароль",
+    "logging_in": "Вход ...",
+    "error_required_fields": "Требуются имя пользователя и пароль",
+    "error_auth_failed": "Ошибка аутентификации!",
+    "error_generic": "Произошла ошибка. Пожалуйста, попробуйте позже."
+  }
+  

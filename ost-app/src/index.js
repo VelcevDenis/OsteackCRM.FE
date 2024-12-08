@@ -4,10 +4,12 @@ import './styles/global.css';
 import './styles/menu.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import './i18n'; // Import i18n config
 import "lineicons/dist/lineicons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
+// Create root and render the app
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -15,7 +17,5 @@ root.render(
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// Measure app performance
 reportWebVitals();

@@ -1,0 +1,13 @@
+{
+    "login": "Login",
+    "username": "Username",
+    "password": "Password",
+    "registration": "Registration",
+    "placeholder_username": "Enter your username",
+    "placeholder_password": "Enter your password",
+    "logging_in": "Logging in ...",
+    "error_required_fields": "Username and password are required",
+    "error_auth_failed": "Authentication failed!",
+    "error_generic": "An error occurred. Please try again later."
+  }
+  

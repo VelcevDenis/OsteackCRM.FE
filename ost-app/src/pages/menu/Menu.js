@@ -96,13 +96,17 @@ const App = () => {
               <span>Setting</span>
             </a>
           </li>
-        </ul>
-        <div className="sidebar-footer">
-          <button className="sidebar-link" onClick={handleLogout}>
-            <i className="lni lni-exit"></i>
-            <span>Logout</span>
-          </button>
-        </div>
+          <li className="sidebar-item">
+            <a
+              href="#"
+              className={`sidebar-link ${activeItem === "setting" ? "active" : ""}`}
+              onClick={handleLogout}
+            >
+              <i className="lni lni-exit"></i>
+              <span>Logout</span>
+            </a>
+          </li>
+        </ul>        
       </aside>
       <div className="main p-3">
         <Outlet /> {/* Render nested routes here */}
