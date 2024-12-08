@@ -312,7 +312,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url("../images/image.png") !important;
+  /* background-image: url("../images/image.png") !important; */
   background-position: center !important;
   background-repeat: no-repeat !important;
   background-size: cover !important;

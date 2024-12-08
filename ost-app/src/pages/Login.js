@@ -42,7 +42,8 @@ export default function Login() {
             if (response.ok) {
                 const data = await response.json();
                 localStorage.setItem('token', data.access_token);
-                navigate('/potencialClients');
+                navigate('/menu/dashboard');
+                window.location.reload(); // Reload the page after navigation
             } else {
                 const errorData = await response.json();
                 setError(errorData.detail || 'Authentication failed!');

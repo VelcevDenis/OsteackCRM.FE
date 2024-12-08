@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import { isAuthenticated, logout } from '../../utils/authHelper'; // Импортируем функции
+import { useNavigate, Outlet } from 'react-router-dom';
+import { logout } from '../../utils/authHelper';
 
 const App = () => {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -11,14 +11,14 @@ const App = () => {
     setIsExpanded(!isExpanded);
   };
 
-  const handleItemClick = (item) => {
-    setActiveItem(item); // Устанавливаем активный элемент
+  const handleItemClick = (item, route) => {
+    setActiveItem(item);
+    navigate(route);
   };
 
-  // Обработка выхода
   const handleLogout = () => {
-    logout(); // Выход из системы
-    navigate("/"); // Перенаправление на страницу логина
+    logout();
+    navigate("/");
   };
 
   return (
@@ -37,7 +37,7 @@ const App = () => {
             <a
               href="#"
               className={`sidebar-link ${activeItem === "dashboard" ? "active" : ""}`}
-              onClick={() => handleItemClick("dashboard")}
+              onClick={() => handleItemClick("dashboard", "/menu/dashboard")}
             >
               <i className="lni lni-dashboard-square-1"></i>
               <span>Dashboard</span>
@@ -46,12 +46,11 @@ const App = () => {
           <li className="sidebar-item">
             <a
               href="#"
-              className={`sidebar-link collapsed has-dropdown ${activeItem === "users" ? "active" : ""}`}
+              className={`sidebar-link collapsed has-dropdown`}
               data-bs-toggle="collapse"
               data-bs-target="#auth"
               aria-expanded="false"
               aria-controls="auth"
-              onClick={() => handleItemClick("users")}
             >
               <i className="lni lni-user-multiple-4"></i>
               <span>Users</span>
@@ -61,7 +60,7 @@ const App = () => {
                 <a
                   href="#"
                   className={`sidebar-link ${activeItem === "employees" ? "active" : ""}`}
-                  onClick={() => handleItemClick("employees")}
+                  onClick={() => handleItemClick("employees", "/menu/employees")}
                 >
                   Employees
                 </a>
@@ -69,8 +68,8 @@ const App = () => {
               <li className="sidebar-item">
                 <a
                   href="#"
-                  className={`sidebar-link ${activeItem === "clients" ? "active" : ""}`}
-                  onClick={() => handleItemClick("clients")}
+                  className={`sidebar-link ${activeItem === "PotencialClients" ? "active" : ""}`}
+                  onClick={() => handleItemClick("PotencialClients", "/menu/PotencialClients")}
                 >
                   Potential Clients
                 </a>
@@ -81,7 +80,7 @@ const App = () => {
             <a
               href="#"
               className={`sidebar-link ${activeItem === "logs" ? "active" : ""}`}
-              onClick={() => handleItemClick("logs")}
+              onClick={() => handleItemClick("logs", "/menu/logs")}
             >
               <i className="lni lni-megaphone-1"></i>
               <span>Logs</span>
@@ -91,7 +90,7 @@ const App = () => {
             <a
               href="#"
               className={`sidebar-link ${activeItem === "setting" ? "active" : ""}`}
-              onClick={() => handleItemClick("setting")}
+              onClick={() => handleItemClick("setting", "/menu/setting")}
             >
               <i className="lni lni-code-1"></i>
               <span>Setting</span>
@@ -106,9 +105,7 @@ const App = () => {
         </div>
       </aside>
       <div className="main p-3">
-        <div className="text-center">
-          <h1>Sidebar Bootstrap 5</h1>
-        </div>
+        <Outlet /> {/* Render nested routes here */}
       </div>
     </div>
   );

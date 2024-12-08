@@ -155,3 +155,33 @@ a.sidebar-link:hover {
     background-color: rgba(255, 255, 255, .075);
     border-left: 3px solid #3b7ddd;
 }
+
+.sidebar-footer {
+    margin-top: auto; /* Keeps the footer at the bottom */
+    padding: 1rem 1.5rem; /* Adds padding similar to other sidebar items */
+    background-color: #0e2238; /* Matches the sidebar background */
+}
+
+.sidebar-footer button {
+    display: block; /* Makes the button behave like a block-level element */
+    width: 100%; /* Full width for consistency */
+    padding: 0.625rem 1.625rem; /* Matches sidebar link padding */
+    color: #FFF; /* White text color */
+    font-size: 0.9rem; /* Matches font size of sidebar links */
+    text-align: left; /* Align text and icon similarly to other links */
+    background-color: transparent; /* No background to match the other links */
+    border: none; /* Removes default button border */
+    cursor: pointer; /* Pointer cursor for interactivity */
+    border-left: 3px solid transparent; /* Same inactive state style as other links */
+    transition: all 0.3s ease; /* Smooth hover transitions */
+}
+
+.sidebar-footer button:hover {
+    background-color: rgba(255, 255, 255, 0.075); /* Same hover background */
+    border-left: 3px solid #3b7ddd; /* Matches active state border for links */
+}
+
+.sidebar-footer button i {
+    font-size: 1.1rem; /* Matches icon size of other links */
+    margin-right: 0.75rem; /* Aligns icon spacing with text */
+}
