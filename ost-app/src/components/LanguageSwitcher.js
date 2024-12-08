@@ -23,19 +23,19 @@ function LanguageSwitcher() {
         <li>
           <button
             className="dropdown-item"
-            onClick={() => changeLanguage('en')}
-          >
-            🇬🇧 English
-          </button>
-        </li>
-        <li>
-          <button
-            className="dropdown-item"
             onClick={() => changeLanguage('ru')}
           >
             🇷🇺 Русский
           </button>
         </li>
+        <li>
+          <button
+            className="dropdown-item"
+            onClick={() => changeLanguage('en')}
+          >
+            🇬🇧 English
+          </button>
+        </li>        
       </ul>
     </div>
   );

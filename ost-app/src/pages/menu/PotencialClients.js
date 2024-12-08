@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import api from '../../utils/api';
 
 function PotencialClients() {
+  const { t } = useTranslation();
+
   const [clients, setClients] = useState([]);
   const [formData, setFormData] = useState({
     firm_name: '',
@@ -38,7 +41,7 @@ function PotencialClients() {
       });
       setClients(response.data);
     } catch (error) {
-      console.error('Error fetching potential clients:', error);
+      console.error(t('error_fetching_clients'), error);
     }
   };
 
@@ -71,7 +74,7 @@ function PotencialClients() {
           next_meeting: formData.next_meeting || null,
           is_approved: updatedData.status === 'completed',
         });
-        setSuccess('Company added successfully!');
+        setSuccess(t('company_added'));
       }
 
       setFormData({
@@ -86,7 +89,7 @@ function PotencialClients() {
       setCurrentCompanyId(null);
       fetchClients();
     } catch (error) {
-      setError('Error saving company.');
+      setError(t('error_saving_company'));
       console.error(error);
     }
   };
@@ -155,17 +158,21 @@ function PotencialClients() {
   };
 
   // Calculate the showing range (e.g., "Showing 1 to 5 of 50 entries")
-  const showingText = `Showing ${indexOfFirstClient + 1} to ${Math.min(indexOfLastClient, filteredClients.length)} of ${filteredClients.length} entries`;
+  const showingText = t('showing_entries', {
+    start: (currentPage - 1) * clientsPerPage + 1,
+    end: Math.min(currentPage * clientsPerPage, filteredClients.length),
+    total: filteredClients.length,
+  });
 
   return (
     <div className="row mx-md-n5">
-      <h1 className="mb-4">Potential Companies</h1>
+      <h1 className="mb-4">{t('potential_companies')}</h1>
 
       <div className="p-5 border bg-light">
         <form onSubmit={handleSubmit}>
           <div className="row g-3">
             <div className="col-md-3">
-              <label className="form-label">Firm Name</label>
+              <label className="form-label">{t('firm_name')}</label>
               <input
                 type="text"
                 className="form-control"
@@ -178,7 +185,7 @@ function PotencialClients() {
             </div>
 
             <div className="col-md-3">
-              <label className="form-label">Email</label>
+              <label className="form-label">{t('email')}</label>
               <input
                 type="email"
                 className="form-control"
@@ -191,7 +198,7 @@ function PotencialClients() {
             </div>
 
             <div className="col-md-3">
-              <label className="form-label">Phone</label>
+              <label className="form-label">{t('phone')}</label>
               <input
                 type="tel"
                 className="form-control"
@@ -204,7 +211,7 @@ function PotencialClients() {
             </div>
 
             <div className="col-md-3">
-              <label className="form-label">Next Meeting</label>
+              <label className="form-label">{t('next_meeting')}</label>
               <input
                 type="datetime-local"
                 className="form-control"
@@ -215,7 +222,7 @@ function PotencialClients() {
             </div>
 
             <div className="col-md-3">
-              <label className="form-label">Status</label>
+              <label className="form-label">{t('status')}</label>
               <select
                 className="form-select"
                 name="status"
@@ -223,15 +230,15 @@ function PotencialClients() {
                 onChange={handleChange}
                 required
               >
-                <option value="pending">Pending</option>
-                <option value="completed">Completed</option>
-                <option value="canceled">Canceled</option>
-                <option value="waiting">Waiting</option>
+                <option value="pending">{t('pending')}</option>
+                <option value="completed">{t('completed')}</option>
+                <option value="canceled">{t('canceled')}</option>
+                <option value="waiting">{t('waiting')}</option>
               </select>
             </div>
 
             <div className="col-md-12">
-              <label className="form-label">Description</label>
+              <label className="form-label">{t('description')}</label>
               <input
                 type="text"
                 className="form-control"
@@ -243,7 +250,7 @@ function PotencialClients() {
 
             <div className="col-md-12 mt-3">
               <button type="submit" className="btn btn-success">
-                {isEditing ? 'Update Company' : 'Add Company'}
+                {isEditing ? t('update_company') : t('add_company')}
               </button>
             </div>
           </div>
@@ -256,13 +263,13 @@ function PotencialClients() {
       <div className="p-5 border bg-light">
         <div className="d-flex bd-highlight">
           <div className="mb-3 p-2 flex-grow-1 bd-highlight">
-            <label className="form-label">Search</label>
+            <label className="form-label">{t('search')}</label>
             <input
               type="text"
               className="form-control"
               value={searchQuery}
               onChange={handleSearchChange}
-              placeholder="Search by firm name, email, phone, or description"
+              placeholder={t('search_placeholder')}
             />
           </div>
         </div>
@@ -271,7 +278,7 @@ function PotencialClients() {
           <>
             <div className="d-flex bd-highlight">
               <div className="d-flex justify-content-between mb-3 p-2 flex-grow-1 bd-highlight">
-                <label className="form-label">Entries per page:</label>
+                <label className="form-label">{t('entries_per_page')}:</label>
                 <select
                   className="form-select w-auto"
                   value={clientsPerPage}
@@ -287,33 +294,33 @@ function PotencialClients() {
               <thead className="thead-dark">
                 <tr>
                   <th onClick={() => sortData('company_id')}>
-                    Company ID {sortConfig.key === 'company_id' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                    {t('company_id')} {sortConfig.key === 'company_id' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
                   </th>
                   <th onClick={() => sortData('firm_name')}>
-                    Firm Name {sortConfig.key === 'firm_name' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                    {t('firm_name')} {sortConfig.key === 'firm_name' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
                   </th>
                   <th onClick={() => sortData('email')}>
-                    Email {sortConfig.key === 'email' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                  {t('email')} {sortConfig.key === 'email' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
                   </th>
                   <th onClick={() => sortData('phone')}>
-                    Phone {sortConfig.key === 'phone' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                  {t('phone')} {sortConfig.key === 'phone' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
                   </th>
                   <th onClick={() => sortData('next_meeting')}>
-                    Next Meeting {sortConfig.key === 'next_meeting' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                  {t('next_meeting')} {sortConfig.key === 'next_meeting' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
                   </th>
                   <th onClick={() => sortData('is_approved')}>
-                    Approved {sortConfig.key === 'is_approved' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                  {t('approved')} {sortConfig.key === 'is_approved' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
                   </th>
                   <th onClick={() => sortData('status')}>
-                    Status {sortConfig.key === 'status' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                  {t('status')} {sortConfig.key === 'status' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
                   </th>
                   <th onClick={() => sortData('description')}>
-                    Description {sortConfig.key === 'description' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                  {t('description')} {sortConfig.key === 'description' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
                   </th>
                   <th onClick={() => sortData('last_update')}>
-                    Last Update {sortConfig.key === 'last_update' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                  {t('last_update')} {sortConfig.key === 'last_update' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
                   </th>
-                  <th>Actions</th>
+                  <th>{t('actions')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -324,13 +331,13 @@ function PotencialClients() {
                     <td>{client.email}</td>
                     <td>{client.phone}</td>
                     <td>{new Date(client.next_meeting).toLocaleString()}</td>
-                    <td>{client.is_approved ? 'Yes' : 'No'}</td>
+                    <td>{client.is_approved ? t('yes') : t('No')}</td>
                     <td>{client.status}</td>
-                    <td>{client.description || 'N/A'}</td>
+                    <td>{client.description || t('n_a')}</td>
                     <td>{new Date(client.last_update).toLocaleString()}</td>
                     <td>
                       <button className="btn btn-warning btn-sm" onClick={() => handleEdit(client)}>
-                        Edit
+                        {t('edit')}
                       </button>
                     </td>
                   </tr>
@@ -346,7 +353,7 @@ function PotencialClients() {
                 <ul className="pagination justify-content-end">
                   <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
                     <button className="page-link" onClick={() => paginate(currentPage - 1)}>
-                      Previous
+                    {t('previous')}
                     </button>
                   </li>
                   {Array.from(
@@ -376,7 +383,7 @@ function PotencialClients() {
             </div>
           </>
         ) : (
-          <p className="text-warning">No potential companies found.</p>
+          <p className="text-warning">{t('no_potential_companies_found')}</p>
         )}
       </div>
     </div>

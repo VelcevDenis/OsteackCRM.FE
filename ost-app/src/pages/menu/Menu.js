@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate, Outlet } from 'react-router-dom';
 import { logout } from '../../utils/authHelper';
+import { useTranslation } from 'react-i18next';
 
 const App = () => {
+  const { t } = useTranslation();
+
   const [isExpanded, setIsExpanded] = useState(true);
   const [activeItem, setActiveItem] = useState(null);
   const navigate = useNavigate();
@@ -29,7 +32,7 @@ const App = () => {
             <i className="lni lni-grid-alt"></i>
           </button>
           <div className="sidebar-logo">
-            <a href="#">CodzSword</a>
+            <a href="#">OsteackOU</a>
           </div>
         </div>
         <ul className="sidebar-nav">
@@ -40,7 +43,7 @@ const App = () => {
               onClick={() => handleItemClick("dashboard", "/menu/dashboard")}
             >
               <i className="lni lni-dashboard-square-1"></i>
-              <span>Dashboard</span>
+              <span>{t('dashboard')}</span>
             </a>
           </li>
           <li className="sidebar-item">
@@ -53,7 +56,7 @@ const App = () => {
               aria-controls="auth"
             >
               <i className="lni lni-user-multiple-4"></i>
-              <span>Users</span>
+              <span>{t('users')}</span>
             </a>
             <ul id="auth" className="sidebar-dropdown list-unstyled collapse">
               <li className="sidebar-item">
@@ -62,7 +65,7 @@ const App = () => {
                   className={`sidebar-link ${activeItem === "employees" ? "active" : ""}`}
                   onClick={() => handleItemClick("employees", "/menu/employees")}
                 >
-                  Employees
+                  {t('employees')}
                 </a>
               </li>
               <li className="sidebar-item">
@@ -71,7 +74,7 @@ const App = () => {
                   className={`sidebar-link ${activeItem === "PotencialClients" ? "active" : ""}`}
                   onClick={() => handleItemClick("PotencialClients", "/menu/PotencialClients")}
                 >
-                  Potential Clients
+                  {t('potential_companies')}
                 </a>
               </li>
             </ul>
@@ -83,7 +86,7 @@ const App = () => {
               onClick={() => handleItemClick("logs", "/menu/logs")}
             >
               <i className="lni lni-megaphone-1"></i>
-              <span>Logs</span>
+              <span>{t('logs')}</span>
             </a>
           </li>
           <li className="sidebar-item">
@@ -93,7 +96,7 @@ const App = () => {
               onClick={() => handleItemClick("setting", "/menu/setting")}
             >
               <i className="lni lni-code-1"></i>
-              <span>Setting</span>
+              <span>{t('setting')}</span>
             </a>
           </li>
           <li className="sidebar-item">
@@ -103,7 +106,7 @@ const App = () => {
               onClick={handleLogout}
             >
               <i className="lni lni-exit"></i>
-              <span>Logout</span>
+              <span>{t('logout')}</span>
             </a>
           </li>
         </ul>        
