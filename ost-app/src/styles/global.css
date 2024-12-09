@@ -13,10 +13,12 @@ body {
 }
 
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  width: 100%;
+  padding: 20px; /* Ensure padding for smaller screens */
 }
 
 .login-card {
@@ -139,16 +141,17 @@ body {
   
   form.shadow.p-4.border.rounded.bg-light.registration {
     min-width: 548px;
-    margin: 0 360px 0 0;
   }
   
   .container {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;  /* Full viewport height */
     width: 100%;
-    padding: 10px;
+    padding: 20px; /* Ensure padding on smaller screens */
   }
+
   
   /* Registration Card */
   .shadow {

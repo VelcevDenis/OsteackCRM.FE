@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Outlet } from 'react-router-dom';
 import { logout } from '../../utils/authHelper';
 import { useTranslation } from 'react-i18next';
+import { isAuthenticated, getUserRole } from '../../utils/authHelper';
 
 const App = () => {
   const { t } = useTranslation();
@@ -36,16 +37,18 @@ const App = () => {
           </div>
         </div>
         <ul className="sidebar-nav">
-          <li className="sidebar-item">
-            <a
-              href="#"
-              className={`sidebar-link ${activeItem === "dashboard" ? "active" : ""}`}
-              onClick={() => handleItemClick("dashboard", "/menu/dashboard")}
-            >
-              <i className="lni lni-dashboard-square-1"></i>
-              <span>{t('dashboard')}</span>
-            </a>
-          </li>
+          {getUserRole() === 1 && (
+            <li className="sidebar-item">
+              <a
+                href="#"
+                className={`sidebar-link ${activeItem === "dashboard" ? "active" : ""}`}
+                onClick={() => handleItemClick("dashboard", "/menu/dashboard")}
+              >
+                <i className="lni lni-dashboard-square-1"></i>
+                <span>{t('dashboard')}</span>
+              </a>
+            </li>
+          )}
           <li className="sidebar-item">
             <a
               href="#"
@@ -59,6 +62,7 @@ const App = () => {
               <span>{t('users')}</span>
             </a>
             <ul id="auth" className="sidebar-dropdown list-unstyled collapse">
+            {getUserRole() === 1 && (
               <li className="sidebar-item">
                 <a
                   href="#"
@@ -68,6 +72,7 @@ const App = () => {
                   {t('employees')}
                 </a>
               </li>
+              )}
               <li className="sidebar-item">
                 <a
                   href="#"
@@ -79,6 +84,7 @@ const App = () => {
               </li>
             </ul>
           </li>
+          {getUserRole() === 1 && (
           <li className="sidebar-item">
             <a
               href="#"
@@ -89,6 +95,8 @@ const App = () => {
               <span>{t('logs')}</span>
             </a>
           </li>
+           )}
+          {getUserRole() === 1 && (
           <li className="sidebar-item">
             <a
               href="#"
@@ -99,6 +107,7 @@ const App = () => {
               <span>{t('setting')}</span>
             </a>
           </li>
+          )}
           <li className="sidebar-item">
             <a
               href="#"

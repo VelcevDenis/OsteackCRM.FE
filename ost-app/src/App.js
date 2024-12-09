@@ -12,8 +12,20 @@ import Employees from "./pages/menu/Employees";
 import PotencialClients from "./pages/menu/PotencialClients";
 import Logs from "./pages/menu/Logs";
 import Settings from "./pages/menu/Settings";
-import { isAuthenticated } from './utils/authHelper';
+import { isAuthenticated, getUserRole } from './utils/authHelper';
 import LanguageSwitcher from "./components/LanguageSwitcher";
+
+
+// import { isAuthenticated, getUserRole } from './utils/authHelper';
+
+// <Route
+//   path="/menu/employees"
+//   element={isAuthenticated() && getUserRole() === 1 ? <Employees /> : <NotFound />}
+// />
+// if (getUserRole() === 1) {
+//   console.log("Пользователь - админ");
+// }
+
 
 function App() {
   const { t } = useTranslation();
