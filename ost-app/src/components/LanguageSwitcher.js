@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 function LanguageSwitcher() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const changeLanguage = (lang) => {
     i18n.changeLanguage(lang);
@@ -17,7 +17,7 @@ function LanguageSwitcher() {
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        🌐 Language
+        🌐 {t('language')}
       </button>
       <ul className="dropdown-menu" aria-labelledby="languageDropdown">
         <li>

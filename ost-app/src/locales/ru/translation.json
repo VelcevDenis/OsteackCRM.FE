@@ -1,4 +1,4 @@
-{
+{   "language": "Язык",   
     "login": "Войти",
     "username": "Имя пользователя",
     "password": "Пароль",
@@ -45,6 +45,23 @@
     "employees": "Сотрудники",
     "logs": "Журналы",
     "setting": "Настройки",
-    "logout": "Выйти"
+    "logout": "Выйти",
+    "waiting":"Ожидание",
+    "next":"Следующий",
+    "userId":"ID Работника",
+    "first_name": "Имя",
+    "last_name": "Фамилия",
+    "phone_number": "Номер телефона",
+    "role": "Роль",
+    "country": "Страна",
+    "city": "Город",
+    "date_of_birth": "Дата рождения",
+    "add_employee": "Добавить сотрудника",
+    "user_added": "Сотрудник успешно добавлен!",
+    "created_at": "Дата создания",
+    "last_date_connection": "Дата последнего подключения",
+    "update_employee": "Обновить сотрудника",
+    "worker": "Работник",
+    "admin": "Администратор"
   }
   

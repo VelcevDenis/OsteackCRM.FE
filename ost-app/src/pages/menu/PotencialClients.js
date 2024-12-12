@@ -331,8 +331,8 @@ function PotencialClients() {
                     <td>{client.email}</td>
                     <td>{client.phone}</td>
                     <td>{new Date(client.next_meeting).toLocaleString()}</td>
-                    <td>{client.is_approved ? t('yes') : t('No')}</td>
-                    <td>{client.status}</td>
+                    <td>{client.is_approved ? t('yes') : t('no')}</td>
+                    <td>{t(client.status)}</td>
                     <td>{client.description || t('n_a')}</td>
                     <td>{new Date(client.last_update).toLocaleString()}</td>
                     <td>
@@ -375,7 +375,7 @@ function PotencialClients() {
                     }`}
                   >
                     <button className="page-link" onClick={() => paginate(currentPage + 1)}>
-                      Next
+                      {t('next')}
                     </button>
                   </li>
                 </ul>

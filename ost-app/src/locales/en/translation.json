@@ -1,5 +1,5 @@
-{
-    "login": "Login",
+{ "language": "Language",    
+  "login": "Login",
     "username": "Username",
     "password": "Password",
     "registration": "Registration",
@@ -33,7 +33,7 @@
     "edit":"Edit",
     "previous":"Previous",
     "no_potential_companies_found":"No potential companies found.",
-    "search":"search",
+    "search":"Search",
     "next_meeting":"Next Meeting",
     "description":"Description",    
     "company_id":"Company ID",    
@@ -45,6 +45,22 @@
     "employees":"Employees",
     "logs":"Logs",
     "setting":"Setting",
-    "logout":"Logout"
+    "logout":"Logout",
+    "waiting":"Waiting",
+    "next":"Next",
+    "userId":"Employee ID",    
+    "first_name":"First Name",
+    "last_name":"Last Name",
+    "role": "Role",
+    "country": "Country",
+    "city": "City",
+    "date_of_birth": "Date of Birth",
+    "add_employee": "Add Employee",
+    "user_added": "Employee added successfully!",
+    "created_at": "Created At",
+    "last_date_connection": "Last Date Connection",
+    "update_employee": "Update Employee",
+    "worker":"Worker",
+    "admin":"Admin"
   }
   
