@@ -83,11 +83,6 @@ export default function Login() {
           </button>
           {error && <p className="error-message text-danger">{error}</p>}
         </form>
-        <div className="footer-links">
-          <button onClick={() => navigate('/register')} className="link-btn">
-            {t('registration')}
-          </button>
-        </div>
       </div>
     </div>
   );
