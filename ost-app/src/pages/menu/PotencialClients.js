@@ -237,7 +237,7 @@ function PotencialClients() {
               </select>
             </div>
 
-            <div className="col-md-12">
+            <div className="col-md-9">
               <label className="form-label">{t('description')}</label>
               <input
                 type="text"

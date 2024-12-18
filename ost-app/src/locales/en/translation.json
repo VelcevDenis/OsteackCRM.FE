@@ -61,6 +61,7 @@
     "last_date_connection": "Last Date Connection",
     "update_employee": "Update Employee",
     "worker":"Worker",
-    "admin":"Admin"
+    "admin":"Admin",
+    "refresh":"Refresh"
   }
   

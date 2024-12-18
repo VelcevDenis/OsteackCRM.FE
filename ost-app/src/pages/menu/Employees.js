@@ -34,7 +34,7 @@ function Employees() {
   // Fetch existing clients
   useEffect(() => {
     fetchClients();
-  }, []);
+  }, [currentPage, clientsPerPage, searchQuery, sortConfig]); 
 
   const fetchClients = async () => {
     try {
@@ -161,7 +161,8 @@ function Employees() {
   // Pagination logic
   const indexOfLastClient = currentPage * clientsPerPage;
   const indexOfFirstClient = indexOfLastClient - clientsPerPage;
-  const currentClients = filteredClients.slice(indexOfFirstClient, indexOfLastClient);
+  const currentClients = filteredClients
+  .slice(indexOfFirstClient, indexOfLastClient);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -188,7 +189,7 @@ function Employees() {
       <div className="p-5 border bg-light">
         <form onSubmit={handleSubmit}>
           <div className="row g-3">
-            <div className="col-md-2">
+            <div className="col-md-3">
               <label className="form-label">{t('first_name')}</label>
               <input
                 type="text"
@@ -199,7 +200,7 @@ function Employees() {
                 required
               />
             </div>     
-            <div className="col-md-2">
+            <div className="col-md-3">
               <label className="form-label">{t('last_name')}</label>
               <input
                 type="text"
@@ -211,7 +212,7 @@ function Employees() {
               />
             </div>
 
-            <div className="col-md-2">
+            <div className="col-md-3">
               <label className="form-label">{t('email')}</label>
               <input
                 type="email"
@@ -224,7 +225,7 @@ function Employees() {
               />
             </div>
 
-            <div className="col-md-2">
+            <div className="col-md-3">
               <label className="form-label">{t('phone')}</label>
               <input
                 type="tel"
@@ -236,22 +237,20 @@ function Employees() {
               />
             </div>
 
-            <div className="col-md-2">
+            <div className="col-md-3">
               <label className="form-label">{t('role')}</label>
               <select
                 className="form-select"
                 name="role_id"
                 value={formData.role_id}
-                onChange={handleChange}                
+                onChange={handleChange}
               >                
                 <option value="3">{t('worker')}</option>
                 <option value="2">{t('admin')}</option>                
               </select>
-            </div>     
-            
-                   
+            </div>
 
-            <div className="col-md-2">
+            <div className="col-md-3">
               <label className="form-label">{t('country')}</label>
               <input
                 type="text"
@@ -263,7 +262,7 @@ function Employees() {
               />
             </div>
 
-            <div className="col-md-2">
+            <div className="col-md-3">
               <label className="form-label">{t('city')}</label>
               <input
                 type="text"
@@ -275,7 +274,7 @@ function Employees() {
               />
             </div>
             
-            <div className="col-md-2">
+            <div className="col-md-3">
               <label className="form-label">{t('date_of_birth')}</label>
               <input
                 type="date"
@@ -286,7 +285,7 @@ function Employees() {
               />
             </div>
 
-            <div className="col-md-2">
+            <div className="col-md-3">
               <label className="form-label">{t('password')}</label>
               <input
                 type="password"
@@ -298,7 +297,7 @@ function Employees() {
               />
             </div>
 
-            <div className="col-md-12">
+            <div className="col-md-9">
               <label className="form-label">{t('description')}</label>
               <input
                 type="text"
@@ -336,14 +335,17 @@ function Employees() {
         </div>
 
         {filteredClients.length > 0 ? (
-          <>
-            <div className="d-flex bd-highlight">
-              <div className="d-flex justify-content-between mb-3 p-2 flex-grow-1 bd-highlight">
-                <label className="form-label">{t('entries_per_page')}:</label>
+          <>   
+          <div className='row'>   
+                  
+            <div className="col-md-1">
+              <div className="d-flex justify-content-between mb-3 p-2 flex-grow-1 bd-highlight">                
                 <select
+                  title={t('entries_per_page')}
                   className="form-select w-auto"
                   value={clientsPerPage}
                   onChange={handleClientsPerPageChange}
+                  style={{ width: '80px' }}  // adjust the width to make it smaller
                 >
                   <option value={5}>5</option>
                   <option value={10}>10</option>
@@ -351,6 +353,14 @@ function Employees() {
                 </select>
               </div>
             </div>
+
+            <div className='offset-md-10 col-md-1'>
+              <button className="btn btn-primary mb-4" onClick={fetchClients}>
+              {t('refresh')}
+              </button>
+            </div> 
+                     
+          </div>
             <table className="table table-striped table-hover">
               <thead className="thead-dark">
                 <tr>
@@ -400,14 +410,14 @@ function Employees() {
                     <td>{client.first_name}</td>
                     <td>{client.last_name}</td>
                     <td>{client.email}</td>
-                    <td>{client.phone}</td>
+                    <td>{client.phone || t('n_a')}</td>
                     <td>{new Date(client.created_at).toLocaleString()}</td>
                     <td>{new Date(client.last_date_connection).toLocaleString()}</td>
-                    <td>{new Date(client.date_of_birth).toLocaleString()}</td>
+                    <td>{new Date(client.date_of_birth).toLocaleDateString('en-US', {  year: 'numeric',  month: 'long',  day: 'numeric',})}</td>
                     <td>{client.role}</td>
                     <td>{client.country}</td>
                     <td>{client.city}</td>    
-                    <td>{client.description || t('n_a')}</td>                                                        
+                    <td>{client.description || t('n_a')}</td>
                     <td>
                       <button className="btn btn-warning btn-sm" onClick={() => handleEdit(client)}>
                         {t('edit')}
