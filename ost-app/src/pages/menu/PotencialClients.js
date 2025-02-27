@@ -61,9 +61,7 @@ function PotencialClients() {
         updatedData.status = 'completed';
       }
 
-      if (updatedData.status !== 'pending') {
-        updatedData.is_approved = updatedData.status === 'completed' ? 1 : 0;
-      }
+      updatedData.is_approved = updatedData.status === 'completed' && updatedData.is_approved !== 'pending' ? 1 : 0;
 
       if (isEditing && currentCompanyId) {
         await api.put(`/auth/recallCompanis/edit/${currentCompanyId}`, updatedData);
@@ -180,7 +178,6 @@ function PotencialClients() {
                 value={formData.firm_name}
                 onChange={handleChange}
                 required
-                readOnly={isEditing}
               />
             </div>
 
@@ -206,7 +203,6 @@ function PotencialClients() {
                 value={formData.phone}
                 onChange={handleChange}
                 required
-                readOnly={isEditing}
               />
             </div>
 
@@ -233,7 +229,6 @@ function PotencialClients() {
                 <option value="pending">{t('pending')}</option>
                 <option value="completed">{t('completed')}</option>
                 <option value="canceled">{t('canceled')}</option>
-                <option value="waiting">{t('waiting')}</option>
               </select>
             </div>
 
@@ -333,8 +328,8 @@ function PotencialClients() {
                     <td>{new Date(client.next_meeting).toLocaleString()}</td>
                     <td>{client.is_approved ? t('yes') : t('no')}</td>
                     <td>{t(client.status)}</td>
-                    <td>{client.description || t('n_a')}</td>
-                    <td>{new Date(client.last_update).toLocaleString()}</td>
+                    <td>{client.description}</td>
+                    <td>{client.last_update ? new Date(client.last_update).toLocaleString() : "-"}</td>
                     <td>
                       <button className="btn btn-warning btn-sm" onClick={() => handleEdit(client)}>
                         {t('edit')}

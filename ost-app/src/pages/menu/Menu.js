@@ -33,7 +33,7 @@ const App = () => {
             <i className="lni lni-grid-alt"></i>
           </button>
           <div className="sidebar-logo">
-            <a href="#">OsteackOU</a>
+            <a href="#">OSACO</a>
           </div>
         </div>
         <ul className="sidebar-nav">

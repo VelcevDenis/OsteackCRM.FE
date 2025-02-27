@@ -412,7 +412,7 @@ function Employees() {
                     <td>{client.email}</td>
                     <td>{client.phone || t('n_a')}</td>
                     <td>{new Date(client.created_at).toLocaleString()}</td>
-                    <td>{new Date(client.last_date_connection).toLocaleString()}</td>
+                    <td>{client.last_date_connection ? new Date(client.last_date_connection).toLocaleString() : "-"}</td>
                     <td>{new Date(client.date_of_birth).toLocaleDateString('en-US', {  year: 'numeric',  month: 'long',  day: 'numeric',})}</td>
                     <td>{client.role}</td>
                     <td>{client.country}</td>
