@@ -49,6 +49,18 @@ const App = () => {
               </a>
             </li>
           )}
+          {getUserRole() === 1 && (
+            <li className="sidebar-item">
+              <a
+                href="#"
+                className={`sidebar-link ${activeItem === "Products" ? "active" : ""}`}
+                onClick={() => handleItemClick("Products", "/menu/products")}
+              >
+                <i className="lni lni-line-height"></i>
+                <span>{t('orders')}</span>
+              </a>
+            </li>
+          )}
           <li className="sidebar-item">
             <a
               href="#"
@@ -96,18 +108,50 @@ const App = () => {
             </a>
           </li>
            )}
+          
+          {/* {getUserRole() === 1 && (
+          <li className="sidebar-item">
+            <a
+              href="#"
+              className={`sidebar-link ${activeItem === "product" ? "active" : ""}`}
+              onClick={() => handleItemClick("product", "/menu/products")}
+            >
+              <i className="lni lni-code-1"></i>
+              <span>{t('product')}</span>
+            </a>
+          </li>
+          )} */}
+          
+          
           {getUserRole() === 1 && (
           <li className="sidebar-item">
             <a
               href="#"
-              className={`sidebar-link ${activeItem === "setting" ? "active" : ""}`}
-              onClick={() => handleItemClick("setting", "/menu/setting")}
+              className={`sidebar-link collapsed has-dropdown`}
+              data-bs-toggle="collapse"
+              data-bs-target="#settings"
+              aria-expanded="false"
+              aria-controls="settings"
             >
               <i className="lni lni-code-1"></i>
               <span>{t('setting')}</span>
             </a>
+            <ul id="settings" className="sidebar-dropdown list-unstyled collapse">
+              <li className="sidebar-item">
+                <a
+                  href="#"
+                  className={`sidebar-link ${activeItem === "SettingsProducts" ? "active" : ""}`}
+                  onClick={() => handleItemClick("SettingsProducts", "/menu/SettingsProducts")}
+                >
+                  <i class="lni lni-locked-1"></i>
+                  {t('SettingsProducts')}
+                </a>
+              </li>              
+            </ul>
           </li>
           )}
+
+          
           <li className="sidebar-item">
             <a
               href="#"
