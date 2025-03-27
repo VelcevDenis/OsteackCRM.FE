@@ -271,20 +271,30 @@ function PotencialClients() {
 
         {filteredClients.length > 0 ? (
           <>
-            <div className="d-flex bd-highlight">
-              <div className="d-flex justify-content-between mb-3 p-2 flex-grow-1 bd-highlight">
-                <label className="form-label">{t('entries_per_page')}:</label>
-                <select
-                  className="form-select w-auto"
-                  value={clientsPerPage}
-                  onChange={handleClientsPerPageChange}
-                >
-                  <option value={5}>5</option>
-                  <option value={10}>10</option>
-                  <option value={15}>15</option>
-                </select>
+          <div className='row'>
+              <div className="col-md-1">
+                <div className="d-flex justify-content-between mb-3 p-2 flex-grow-1 bd-highlight">                
+                  <select
+                    title={t('entries_per_page')}
+                    className="form-select w-auto"
+                    value={clientsPerPage}
+                    onChange={handleClientsPerPageChange}
+                    style={{ width: '80px' }}  // adjust the width to make it smaller
+                  >
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={15}>15</option>
+                  </select>
+                </div>
               </div>
+
+              <div className='offset-md-10 col-md-1'>
+                <button className="btn btn-primary mb-4" onClick={fetchClients}>
+                {t('refresh')}
+                </button>
+              </div>  
             </div>
+            
             <table className="table table-striped table-hover">
               <thead className="thead-dark">
                 <tr>

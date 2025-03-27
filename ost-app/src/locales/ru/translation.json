@@ -26,7 +26,6 @@
     "error_fetching_clients": "Ошибка загрузки клиентов.",
     "showing_entries": "Показано с {{start}} по {{end}} из {{total}} записей",
     "search_placeholder": "Поиск по названию фирмы, электронной почте, телефону или описанию",
-    "entries_per_page": "Записей на странице",
     "yes": "Да",
     "no": "Нет",
     "n_a": "Не применимо",
@@ -116,6 +115,9 @@
     "select_sub_category": "Выберите подкатегорию",
     "update_product": "Обновить продукт",
     "add_product": "Добавить продукт",    
-    "product_id": "ID продукта"
+    "product_id": "ID продукта",
+    "error_invalid_subcategory": "Выбранная подкатегория недействительна.",
+  "error_count_exceeds_available": "Количество превышает доступное.",
+  "error_edit_count_increase_forbidden": "Увеличение количества при редактировании запрещено."  
   }
   

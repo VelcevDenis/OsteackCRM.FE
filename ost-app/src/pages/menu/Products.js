@@ -83,52 +83,100 @@ function Products() {
     event.preventDefault();
     setError('');
     setSuccess('');
-  
+
     try {
-      let updatedData = {
-        id:formData.id,
-        customer_name: formData.customer_name,
-        count: formData.count,
-        length: formData.length,
-        width: formData.width,
-        height: formData.height || null,
-        status: formData.status,
-        category_id: formData.category_id,
-        sub_category_id: formData.sub_category_id,
-        created_at:formData.created_at,
-        last_update:formData.last_update
-      };
-  
-      if (isEditing && currentProductId) {
-        // Call the update API
-        await api.put(`/auth/product/edit/${currentProductId}`, updatedData);
-        setSuccess(t('product_updated'));
-      } else {
-        // Call the add API
-        await api.post('/auth/product/add', updatedData);
-        setSuccess(t('product_added'));
-      }
-  
-      // Reset form state
-      setFormData({
-        customer_name: '',
-        count: '',
-        length: '',
-        width: '',
-        height: '',
-        status: 'pending',
-        category_id: '',
-        sub_category_id: '',
-      });
-  
-      setIsEditing(false);
-      setCurrentProductId(null);
-      fetchProducts(); // Refresh the product list
+        console.log("Form Data:", formData);  // Debugging log
+        console.log("Subcategories:", subCategories);  // Debugging log
+
+        // Ensure sub_category_id is a number (if IDs are stored as strings)
+        const subCategoryId = parseInt(formData.sub_category_id, 10);
+
+        // Find the selected subcategory
+        const selectedSubCategory = subCategories.find(sub => parseInt(sub.id, 10) === subCategoryId);
+
+        if (!selectedSubCategory) {
+            setError(t('error_invalid_subcategory'));
+            console.error("Selected subcategory not found!");
+            return;
+        }
+
+        console.log("Selected Subcategory:", selectedSubCategory);  // Debugging log
+
+        const availableCount = selectedSubCategory.count - selectedSubCategory.booked;
+
+        // Fetch the existing product count if editing
+        let existingProduct = null;
+        let previousCount = 0;
+        if (isEditing && currentProductId) {
+            existingProduct = products.find(prod => prod.id === currentProductId);
+            if (existingProduct) {
+                previousCount = parseInt(existingProduct.count, 10);
+            }
+        }
+
+        const newCount = parseInt(formData.count, 10);
+
+        if (!isEditing) {
+            // Adding a new product
+            if (newCount > availableCount) {
+                setError(t('error_count_exceeds_available'));
+                return;
+            }
+        } else {
+            // Editing an existing product
+            if (newCount > previousCount) {
+                setError(t('error_edit_count_increase_forbidden'));
+                return;
+            }
+        }
+
+        let updatedData = {
+            id: formData.id,
+            customer_name: formData.customer_name,
+            count: formData.count,
+            length: formData.length,
+            width: formData.width,
+            height: formData.height || null,
+            status: formData.status,
+            category_id: formData.category_id,
+            sub_category_id: formData.sub_category_id,
+            created_at: formData.created_at,
+            last_update: formData.last_update
+        };
+
+        if (isEditing && currentProductId) {
+            // Call the update API
+            await api.put(`/auth/product/edit/${currentProductId}`, updatedData);
+            setSuccess(t('product_updated'));
+        } else {
+            // Call the add API
+            await api.post('/auth/product/add', updatedData);
+            setSuccess(t('product_added'));
+        }
+
+        await fetchSubCategories();
+
+        setFormData({
+            customer_name: '',
+            count: '',
+            length: '',
+            width: '',
+            height: '',
+            status: 'pending',
+            category_id: '',
+            sub_category_id: '',
+        });
+
+        setIsEditing(false);
+        setCurrentProductId(null);
+        fetchProducts(); // Refresh the product list
     } catch (error) {
-      setError(t('error_saving_product'));
-      console.error(error);
+        setError(t('error_saving_product'));
+        console.error(error);
     }
-  };
+};
+
+
   
 
   const handleChange = (event) => {
@@ -377,20 +425,29 @@ function Products() {
         </div>
 
         {filteredProducts.length > 0 ? (
-          <>
-            <div className="d-flex bd-highlight">
-              <div className="d-flex justify-content-between mb-3 p-2 flex-grow-1 bd-highlight">
-                <label className="form-label">{t('entries_per_page')}:</label>
-                <select
-                  className="form-select w-auto"
-                  value={productsPerPage}
-                  onChange={handleProductsPerPageChange}
-                >
-                  <option value={5}>5</option>
-                  <option value={10}>10</option>
-                  <option value={15}>15</option>
-                </select>
+          <>            
+            <div className='row'>
+              <div className="col-md-1">
+                <div className="d-flex justify-content-between mb-3 p-2 flex-grow-1 bd-highlight">                
+                  <select
+                    title={t('entries_per_page')}
+                    className="form-select w-auto"
+                    value={productsPerPage}
+                    onChange={handleProductsPerPageChange}
+                    style={{ width: '80px' }}  // adjust the width to make it smaller
+                  >
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={15}>15</option>
+                  </select>
+                </div>
               </div>
+
+              <div className='offset-md-10 col-md-1'>
+                <button className="btn btn-primary mb-4" onClick={fetchProducts}>
+                {t('refresh')}
+                </button>
+              </div>  
             </div>
             <table className="table table-striped table-hover">
               <thead className="thead-dark">

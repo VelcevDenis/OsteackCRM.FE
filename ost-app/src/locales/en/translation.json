@@ -26,7 +26,6 @@
     "error_fetching_clients": "Error fetching potential clients.",
     "showing_entries": "Showing {{start}} to {{end}} of {{total}} entries",
     "search_placeholder":"Search by firm name, email, phone, or description",
-    "entries_per_page":"Entries per page",
     "yes":"Yes",
     "no":"No",
     "n_a":"N/A",
@@ -114,6 +113,9 @@
     "select_sub_category": "Select Subcategory",
     "update_product": "Update Product",
     "add_product": "Add Product",    
-    "product_id": "Product ID"
+    "product_id": "Product ID",
+    "error_invalid_subcategory": "Selected subcategory is invalid.",
+  "error_count_exceeds_available": "The count exceeds the available quantity.",
+  "error_edit_count_increase_forbidden": "Increasing the count during editing is not allowed."  
   }
   
