@@ -37,7 +37,7 @@ const App = () => {
           </div>
         </div>
         <ul className="sidebar-nav">
-          {getUserRole() === 1 && (
+          
             <li className="sidebar-item">
               <a
                 href="#"
@@ -48,19 +48,18 @@ const App = () => {
                 <span>{t('dashboard')}</span>
               </a>
             </li>
-          )}
-          {getUserRole() === 1 && (
-            <li className="sidebar-item">
-              <a
-                href="#"
-                className={`sidebar-link ${activeItem === "Products" ? "active" : ""}`}
-                onClick={() => handleItemClick("Products", "/menu/products")}
-              >
-                <i className="lni lni-line-height"></i>
-                <span>{t('orders')}</span>
-              </a>
-            </li>
-          )}
+                   
+          <li className="sidebar-item">
+            <a
+              href="#"
+              className={`sidebar-link ${activeItem === "Products" ? "active" : ""}`}
+              onClick={() => handleItemClick("Products", "/menu/products")}
+            >
+              <i className="lni lni-line-height"></i>
+              <span>{t('orders')}</span>
+            </a>
+          </li>
+          
           <li className="sidebar-item">
             <a
               href="#"
@@ -74,7 +73,7 @@ const App = () => {
               <span>{t('users')}</span>
             </a>
             <ul id="auth" className="sidebar-dropdown list-unstyled collapse">
-            {getUserRole() === 1 && (
+            {(getUserRole() === 1 || getUserRole() === 2) && (
               <li className="sidebar-item">
                 <a
                   href="#"
@@ -123,7 +122,7 @@ const App = () => {
           )} */}
           
           
-          {getUserRole() === 1 && (
+          {(getUserRole() === 1 || getUserRole() === 2) && (
           <li className="sidebar-item">
             <a
               href="#"

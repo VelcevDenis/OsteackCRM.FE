@@ -118,6 +118,12 @@
     "product_id": "ID продукта",
     "error_invalid_subcategory": "Выбранная подкатегория недействительна.",
   "error_count_exceeds_available": "Количество превышает доступное.",
-  "error_edit_count_increase_forbidden": "Увеличение количества при редактировании запрещено."  
+  "error_edit_count_increase_forbidden": "Увеличение количества при редактировании запрещено.",
+  "subcategory": "Подкатегория",
+  "booked": "Забронировано",
+  "new_subcategory_count": "Количество подкатегорий",
+  "price_per_piece": "Цена за штуку",
+  "total_price": "Общая цена"
+
   }
   

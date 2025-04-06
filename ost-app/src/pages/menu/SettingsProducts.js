@@ -10,7 +10,7 @@ function CategoryManager() {
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const [newCategory, setNewCategory] = useState('');
-  const [newSubcategory, setNewSubcategory] = useState({ name: '', count: '', categoryId: '' });
+  const [newSubcategory, setNewSubcategory] = useState({ name: '', count: '', length: '', width: '', height: '', price_per_piece: '', categoryId: '' });
   const [editingCategory, setEditingCategory] = useState(null);
   const [editingSubcategory, setEditingSubcategory] = useState(null);
   const [updatedCategoryName, setUpdatedCategoryName] = useState('');
@@ -20,7 +20,6 @@ function CategoryManager() {
 
   useEffect(() => {
     fetchCategories();
-    fetchSubcategories();
   }, []);
 
   const fetchCategories = async () => {
@@ -76,6 +75,10 @@ function CategoryManager() {
       const response = await api.post('/auth/subcategory/add', {
         name: newSubcategory.name.trim(),
         count: newSubcategory.count.trim(),
+        length: newSubcategory.length.trim(),
+        width: newSubcategory.width.trim(),
+        height: newSubcategory.height.trim(),
+        price_per_piece: newSubcategory.price_per_piece.trim(),
         category_id: newSubcategory.categoryId
       });
   
@@ -83,13 +86,23 @@ function CategoryManager() {
   
       // Manually add the new subcategory to the existing state
       setSubcategories((prevSubcategories) => [
-        { id: response.data.id, name: newSubcategory.name, count:newSubcategory.count, category_id: newSubcategory.categoryId },
+        { id: response.data.id, name: newSubcategory.name, count:newSubcategory.count, 
+          length:newSubcategory.length,
+          width:newSubcategory.width,
+          height:newSubcategory.height,
+          price_per_piece:newSubcategory.price_per_piece,
+           category_id: newSubcategory.categoryId },
         ...prevSubcategories
       ]);
       
   
       // Keep the selected category but clear the subcategory name
-      setNewSubcategory({ name: '', count:'', categoryId: newSubcategory.categoryId });
+      setNewSubcategory({ name: '', count:'',
+        length:'',
+        width:'',
+        height:'',
+        price_per_piece:'',
+         categoryId: newSubcategory.categoryId });
       
     } catch (error) {
       setError(error.response?.data?.detail || t('error_creating_subcategory'));
@@ -163,21 +176,29 @@ function CategoryManager() {
       return;
     }
   
-    // Ensure count is an integer before sending it
-    const count = parseInt(editingSubcategory.count.trim(), 10);
-    
-    if (isNaN(count)) {
-      setError(t('subcategory_count_required')); // Ensure it's a valid number
+    // Ensure values are strings before trimming, and parse them correctly
+    const count = parseInt(editingSubcategory.count?.toString().trim() || "0", 10);
+    const length = parseInt(editingSubcategory.length?.toString().trim() || "0", 10);
+    const width = parseInt(editingSubcategory.width?.toString().trim() || "0", 10);
+    const height = parseInt(editingSubcategory.height?.toString().trim() || "0", 10);
+    const price_per_piece = parseFloat(editingSubcategory.price_per_piece?.toString().trim() || "0");
+  
+    if (isNaN(count) || isNaN(length) || isNaN(width) || isNaN(height) || isNaN(price_per_piece)) {
+      setError(t('invalid_numeric_value'));
       return;
     }
   
     try {
       await api.put(`/auth/subcategory/${editingSubcategory.id}`, {
         name: updatedSubcategoryName.trim(),
-        count: count,
-        booked: -1,
-         // Ensure count is passed as an integer
+        count,
+        length,
+        width,
+        height,
+        price_per_piece,
+        booked: -1, 
       });
+  
       setSuccess(t('subcategory_updated'));
       setEditingSubcategory(null);
       fetchSubcategories();
@@ -186,6 +207,7 @@ function CategoryManager() {
       console.error(error);
     }
   };
+  
   
   
   
@@ -204,18 +226,18 @@ function CategoryManager() {
       setSubcategories(response.data);
     } catch (error) {
       if (error.response?.status === 404) {
-        setSubcategories([]); // Set an empty list if no subcategories found
+        setSubcategories([]); // Empty if no subcategories found
       } else {
         console.error(t('error_fetching_subcategories'), error);
       }
     }
-  };  
+  };
 
   return (
     <div className="container mt-5">
       <div className="row">
         {/* Category Section */}
-        <div className="col-md-6">
+        <div className="col-md-4">
           <div className="card shadow-lg border-0 mb-4">
             <div className="card-header bg-primary text-white text-center">
               <h3 className="fw-bold">{t('manage_categories')}</h3>
@@ -289,7 +311,7 @@ function CategoryManager() {
 {/* sub category model */}
 
         {/* Subcategory Section */}
-        <div className="col-md-6">
+        <div className="col-md-8">
           <div className="card shadow-lg border-0">
             <div className="card-header bg-secondary text-white text-center">
               <h3 className="fw-bold">{t('manage_subcategories')}</h3>
@@ -308,11 +330,43 @@ function CategoryManager() {
                   <input
                     type="number"
                     className="form-control"
+                    placeholder={t('length')}
+                    value={newSubcategory.length}
+                    onChange={(e) => setNewSubcategory({ ...newSubcategory, length: e.target.value })}
+                    required
+                  />
+                  <input
+                    type="number"
+                    className="form-control"
+                    placeholder={t('width')}
+                    value={newSubcategory.width}
+                    onChange={(e) => setNewSubcategory({ ...newSubcategory, width: e.target.value })}
+                    required
+                  />
+                  <input
+                    type="number"
+                    className="form-control"
+                    placeholder={t('height')}
+                    value={newSubcategory.height}
+                    onChange={(e) => setNewSubcategory({ ...newSubcategory, height: e.target.value })}
+                    required
+                  />
+                  <input
+                    type="number"
+                    className="form-control"
+                    placeholder={t('price_per_piece')}
+                    value={newSubcategory.price_per_piece}
+                    onChange={(e) => setNewSubcategory({ ...newSubcategory, price_per_piece: e.target.value })}
+                    required
+                  />
+                  <input
+                    type="number"
+                    className="form-control"
                     placeholder={t('new_subcategory_count')}
                     value={newSubcategory.count}
                     onChange={(e) => setNewSubcategory({ ...newSubcategory, count: e.target.value })}
                     required
-                  />
+                  />  
                   <select className="form-select" value={newSubcategory.categoryId} onChange={handleCategoryChange}>
                     <option value="">{t('select_category')}</option>
                     {categories.map((category) => (
@@ -322,28 +376,43 @@ function CategoryManager() {
                   <button type="submit" className="btn btn-dark">{t('add_subcategory')}</button>
                 </div>
               </form>
-              <div className="list-container">
-                <ul className="list-group">
+              <table className="table table-bordered">
+                <thead className="thead-light">
+                  <tr>
+                    <th>{t('subcategory')}</th>
+                    <th className="text-center" style={{ width: '80px' }}>{t('length')}</th>
+                    <th className="text-center" style={{ width: '80px' }}>{t('width')}</th>
+                    <th className="text-center" style={{ width: '80px' }}>{t('height')}</th>
+                    <th className="text-center" style={{ width: '80px' }}>{t('price_per_piece')}</th>
+                    <th className="text-center" style={{ width: '80px' }}>{t('count')}</th>
+                    <th className="text-center" style={{ width: '80px' }}>{t('booked')}</th>
+                    <th className="text-center" style={{ width: '160px' }}>{t('actions')}</th>
+                  </tr>
+                </thead>
+
+                {/* Table Body */}
+                <tbody>
                   {subcategories.map((subcategory) => (
-                    <li key={subcategory.id} className="list-group-item d-flex justify-content-between">
-                      <div className="d-flex justify-content-between w-100">
-                        <div className="flex-grow-1">{subcategory.name}</div>
-                        <div className="text-center" style={{ width: '80px' }}>
-                          {subcategory.count}
-                        </div>
-                        <div className="d-flex gap-2 align-items-center">
-                          <button className="btn btn-primary btn-sm" onClick={() => handleEditSubcategory(subcategory)}>
-                            {t('edit')}
-                          </button>
-                          <button className="btn btn-danger btn-sm" onClick={() => handleDeleteSubcategory(subcategory.id)}>
-                            <i className="fas fa-trash-alt me-1"></i> {t('delete')}
-                          </button>
-                        </div>
-                      </div>
-                    </li>
+                    <tr key={subcategory.id}>
+                      <td>{subcategory.name}</td>
+                      <td className="text-center">{subcategory.length}</td>
+                      <td className="text-center">{subcategory.width}</td>
+                      <td className="text-center">{subcategory.height}</td>
+                      <td className="text-center">{subcategory.price_per_piece}</td>
+                      <td className="text-center">{subcategory.count}</td>
+                      <td className="text-center">{subcategory.booked}</td>
+                      <td className="d-flex gap-2 align-items-center">
+                        <button className="btn btn-primary btn-sm" onClick={() => handleEditSubcategory(subcategory)}>
+                          {t('edit')}
+                        </button>
+                        <button className="btn btn-danger btn-sm" onClick={() => handleDeleteSubcategory(subcategory.id)}>
+                          <i className="fas fa-trash-alt me-1"></i> {t('delete')}
+                        </button>
+                      </td>
+                    </tr>
                   ))}
-                </ul>
-              </div>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -372,6 +441,42 @@ function CategoryManager() {
                   />
                 </div>
                 <div className="mb-3">
+                  <label htmlFor="length" className="form-label">
+                    {t('length')}
+                  </label>
+                  <input
+                    type="number"
+                    id="length"
+                    className="form-control"
+                    value={editingSubcategory.length} // Bind the length to the input value
+                    onChange={(e) => setEditingSubcategory({ ...editingSubcategory, length: e.target.value })}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="width" className="form-label">
+                    {t('width')}
+                  </label>
+                  <input
+                    type="number"
+                    id="width"
+                    className="form-control"
+                    value={editingSubcategory.width} // Bind the width to the input value
+                    onChange={(e) => setEditingSubcategory({ ...editingSubcategory, width: e.target.value })}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="height" className="form-label">
+                    {t('height')}
+                  </label>
+                  <input
+                    type="number"
+                    id="height"
+                    className="form-control"
+                    value={editingSubcategory.height} // Bind the height to the input value
+                    onChange={(e) => setEditingSubcategory({ ...editingSubcategory, height: e.target.value })}
+                  />
+                </div>
+                <div className="mb-3">
                   <label htmlFor="subcategoryCount" className="form-label">
                     {t('subcategory_count')}
                   </label>
@@ -383,6 +488,18 @@ function CategoryManager() {
                     onChange={(e) => setEditingSubcategory({ ...editingSubcategory, count: e.target.value })}
                   />
                 </div>
+                <div className="mb-3">
+                  <label htmlFor="unitPrice" className="form-label">
+                    {t('price_per_piece')}
+                  </label>
+                  <input
+                    type="number"
+                    id="unitPrice"
+                    className="form-control"
+                    value={editingSubcategory.price_per_piece} // Bind the price_per_piece to the input value
+                    onChange={(e) => setEditingSubcategory({ ...editingSubcategory, price_per_piece: e.target.value })}
+                  />
+                </div>                
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" onClick={() => setEditingSubcategory(null)}>

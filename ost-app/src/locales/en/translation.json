@@ -116,6 +116,14 @@
     "product_id": "Product ID",
     "error_invalid_subcategory": "Selected subcategory is invalid.",
   "error_count_exceeds_available": "The count exceeds the available quantity.",
-  "error_edit_count_increase_forbidden": "Increasing the count during editing is not allowed."  
+  "error_edit_count_increase_forbidden": "Increasing the count during editing is not allowed.",
+  "subcategory": "Sub Category",
+  "booked": "Booked",
+  "new_subcategory_count": "Sub Category Count",
+  "price_per_piece": "Price Per Piece",
+  "total_price": "Total Price"
+
   }
+
+  
   

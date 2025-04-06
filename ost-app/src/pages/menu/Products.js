@@ -13,8 +13,10 @@ function Products() {
     count: '',
     length: '',
     width: '',
-    height: '',
+    height: '',    
     status: 'pending',
+    total_price: 0,
+    description: '',
     category_id: '',
     sub_category_id: '',
   });
@@ -64,7 +66,15 @@ function Products() {
 
   const handleCategoryChange = (event) => {
     const categoryId = event.target.value;
-    setFormData({ ...formData, category_id: categoryId, sub_category_id: '' }); // Reset subcategory on category change
+    setFormData({
+      ...formData,
+      category_id: categoryId, 
+      sub_category_id: '', // Reset subcategory
+      length: '',          // Clear length
+      width: '',           // Clear width
+      height: ''           // Clear height
+    });
+    
     fetchSubCategories(categoryId); // Fetch subcategories based on selected category
   };
 
@@ -138,6 +148,8 @@ function Products() {
             width: formData.width,
             height: formData.height || null,
             status: formData.status,
+            total_price: formData.total_price,
+            description: formData.description,
             category_id: formData.category_id,
             sub_category_id: formData.sub_category_id,
             created_at: formData.created_at,
@@ -163,6 +175,8 @@ function Products() {
             width: '',
             height: '',
             status: 'pending',
+            total_price: '',
+            description: '',
             category_id: '',
             sub_category_id: '',
         });
@@ -179,10 +193,48 @@ function Products() {
 
   
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
+const handleChange = (e) => {
+  const { name, value } = e.target;
+
+  if (name === "sub_category_id") {
+    // Find the selected subcategory by its ID
+    const selectedSubCategory = subCategories.find(
+      (sub) => sub.id.toString() === value
+    );
+
+    // Set the form data with values of the selected subcategory
+    setFormData((prev) => ({
+      ...prev,
+      sub_category_id: value,
+      length: selectedSubCategory ? selectedSubCategory.length : "", // Set length from selected subcategory
+      width: selectedSubCategory ? selectedSubCategory.width : "",   // Set width from selected subcategory
+      height: selectedSubCategory ? selectedSubCategory.height : "", // Set height from selected subcategory
+      price_per_piece: selectedSubCategory ? selectedSubCategory.price_per_piece : "",
+      total_price: "", // Reset total_price as the subcategory is changing
+    }));
+  } else {
+    setFormData((prev) => {
+      const updatedData = { ...prev, [name]: value };
+
+      // Calculate total_price when count or price_per_piece changes
+      if (name === "count") {
+        const countValue = Math.max(0, Number(updatedData.count)); // Ensure non-negative value
+
+        updatedData.price_per_piece = subCategories.find(
+          (sub) => sub.id.toString() === prev.sub_category_id.toString()
+        ).price_per_piece;
+
+        const pricePerPiece = Number(updatedData.price_per_piece) || 0; // Default to 0 if price_per_piece is missing
+
+        // Calculate the total_price if both count and unit_price are available
+        updatedData.total_price = countValue * pricePerPiece;
+      }
+
+      return updatedData;
+    });
+  }
+};
+
 
   const handleEdit = (product) => {
     setIsEditing(true);
@@ -196,6 +248,8 @@ function Products() {
       width: product.width,
       height: product.height,
       status: product.status,
+      total_price: product.total_price,
+      description: product.description,
       category_id: product.category_id,
       sub_category_id: product.sub_category_id,
       created_at:product.created_at,
@@ -231,6 +285,8 @@ function Products() {
       String(product.width || "").toLowerCase().includes(query) ||
       String(product.height || "").toLowerCase().includes(query) ||
       product.status?.toLowerCase().includes(query) ||
+      String(product.total_price || "").toLowerCase().includes(query) ||
+      String(product.description || "").toLowerCase().includes(query) ||
       String(product.category_id || "").toLowerCase().includes(query) ||
       String(product.sub_category_id || "").toLowerCase().includes(query)
     );
@@ -286,22 +342,22 @@ function Products() {
           <div className="row g-3">
 
           <div className="col-md-3">
-              <label className="form-label">{t('category')}</label>
-              <select
-                className="form-select"
-                name="category_id"
-                value={formData.category_id}
-                onChange={handleCategoryChange} // Handle category change
-                required
-              >
-                <option value="">{t('select_category')}</option>
-                {categories.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
-                    {cat.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <label className="form-label">{t('category')}</label>
+            <select
+              className="form-select"
+              name="category_id"
+              value={formData.category_id}
+              onChange={handleCategoryChange} // Handle category change
+              required
+            >
+              <option value="">{t('select_category')}</option>
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
             <div className="col-md-3">
               <label className="form-label">{t('sub_category')}</label>
@@ -348,12 +404,10 @@ function Products() {
             <div className="col-md-3">
               <label className="form-label">{t('length')}</label>
               <input
-                type="number"
+                type="text"
                 className="form-control"
-                name="length"
-                value={formData.length}
-                onChange={handleChange}
-                required
+                value={formData.length || ""}
+                readOnly
               />
             </div>
 
@@ -362,10 +416,8 @@ function Products() {
               <input
                 type="number"
                 className="form-control"
-                name="width"
-                value={formData.width}
-                onChange={handleChange}
-                required
+                value={formData.width || ""}
+                readOnly
               />
             </div>
 
@@ -374,12 +426,34 @@ function Products() {
               <input
                 type="number"
                 className="form-control"
-                name="height"
-                value={formData.height}
+                value={formData.height || ""}
+                readOnly
+              />
+            </div>
+
+            <div className="col-md-3">
+              <label className="form-label">{t('total_price')}</label>
+              <input
+                type="number"
+                className="form-control"
+                name="total_price"
+                value={formData.total_price}
                 onChange={handleChange}
                 required
               />
             </div>   
+
+            <div className="col-md-9">
+              <label className="form-label">{t('description')}</label>
+              <input
+                type="text"
+                className="form-control"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                required
+              />
+            </div>       
 
             {isEditing && (
               <div className="col-md-3">
@@ -396,7 +470,7 @@ function Products() {
                   <option value="canceled">{t('canceled')}</option>
                 </select>
               </div>
-            )}           
+            )}       
 
             <div className="col-md-12 mt-3">
               <button type="submit" className="btn btn-success">
@@ -478,7 +552,13 @@ function Products() {
                   </th>
                   <th onClick={() => sortData('status')}>
                   {t('status')} {sortConfig.key === 'status' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                  </th>                  
+                  </th>    
+                  <th onClick={() => sortData('total_price')}>
+                  {t('total_price')} {sortConfig.key === 'total_price' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                  </th>
+                  <th onClick={() => sortData('description')}>
+                  {t('description')} {sortConfig.key === 'description' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                  </th>              
                   <th onClick={() => sortData('category')}>
                   {t('category')} {sortConfig.key === 'category' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
                   </th>
@@ -499,7 +579,9 @@ function Products() {
                     <td>{product.height}</td>
                     <td>{new Date(product.created_at).toLocaleString()}</td>
                     <td>{product.last_update ? new Date(product.last_update).toLocaleString() : "-"}</td>
-                    <td>{t(product.status)}</td>                    
+                    <td>{t(product.status)}</td>     
+                    <td>{product.total_price}</td>
+                    <td>{product.description}</td>               
                     <td>{product.category_obj ? product.category_obj.name : '-'}</td>
                     <td>{product.sub_category_obj ? product.sub_category_obj.name : '-'}</td>
                     
