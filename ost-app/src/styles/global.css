@@ -403,3 +403,48 @@ body {
   right: 3px;
   top: 3px;
 }
+
+
+
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+}
+
+.form-control,
+.form-select {
+  flex: 1;  /* Ensures that both input and select take up equal width */
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  box-sizing: border-box;  /* Ensures padding and border are included in the width calculation */
+}
+
+.btn-dark {
+  background-color: #343a40;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-dark:hover {
+  background-color: #23272b;
+}
+
+@media (max-width: 768px) {
+  .input-group {
+    flex-direction: column; /* Stack input, select, and button vertically on small screens */
+    gap: 15px;
+  }
+
+  .form-control, .form-select, .btn-dark {
+    width: 100%;  /* Make the fields full width on small screens */
+  }
+}

@@ -336,8 +336,7 @@ function Employees() {
 
         {filteredClients.length > 0 ? (
           <>   
-          <div className='row'>   
-                  
+          <div className='row'> 
             <div className="col-md-1">
               <div className="d-flex justify-content-between mb-3 p-2 flex-grow-1 bd-highlight">                
                 <select
@@ -358,8 +357,7 @@ function Employees() {
               <button className="btn btn-primary mb-4" onClick={fetchClients}>
               {t('refresh')}
               </button>
-            </div> 
-                     
+            </div>                      
           </div>
             <table className="table table-striped table-hover">
               <thead className="thead-dark">

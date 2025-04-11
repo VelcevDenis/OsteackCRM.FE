@@ -185,3 +185,8 @@ a.sidebar-link:hover {
     font-size: 1.1rem; /* Matches icon size of other links */
     margin-right: 0.75rem; /* Aligns icon spacing with text */
 }
+
+.list-container {
+    max-height: 400px; /* Adjust based on design */
+    overflow-y: auto;
+  }
