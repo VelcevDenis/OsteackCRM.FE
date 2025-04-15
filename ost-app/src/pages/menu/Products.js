@@ -523,6 +523,7 @@ const handleChange = (e) => {
                 </button>
               </div>  
             </div>
+            <div class="table-scroll-container">
             <table className="table table-striped table-hover">
               <thead className="thead-dark">
                 <tr>
@@ -599,7 +600,7 @@ const handleChange = (e) => {
                 ))}
               </tbody>
             </table>
-
+            
             <div className="d-flex bd-highlight">
               {/* Showing range text */}
               <div className="mb-3 p-2 flex-grow-1 bd-highlight">{showingText}</div>
@@ -635,6 +636,7 @@ const handleChange = (e) => {
                   </li>
                 </ul>
               </nav>
+            </div>
             </div>
           </>
         ) : (

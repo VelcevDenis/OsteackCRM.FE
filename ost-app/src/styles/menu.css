@@ -190,3 +190,21 @@ a.sidebar-link:hover {
     max-height: 400px; /* Adjust based on design */
     overflow-y: auto;
   }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    min-width: 911px;
+    min-height: 100vh;
+}
+
+@media (max-width: 1785px) {
+    .table-scroll-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+    }
+
+    .table-scroll-container table {
+        min-width: 1000px; /* Минимальная ширина, которая активирует горизонтальный скролл */
+    }
+}

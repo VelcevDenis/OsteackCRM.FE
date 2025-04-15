@@ -359,108 +359,110 @@ function Employees() {
               </button>
             </div>                      
           </div>
-            <table className="table table-striped table-hover">
-              <thead className="thead-dark">
-                <tr>
-                  <th onClick={() => sortData('userId')}>
-                    {t('userId')} {sortConfig.key === 'userId' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => sortData('first_name')}>
-                    {t('first_name')} {sortConfig.key === 'first_name' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => sortData('last_name')}>
-                    {t('last_name')} {sortConfig.key === 'last_name' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => sortData('email')}>
-                  {t('email')} {sortConfig.key === 'email' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => sortData('phone')}>
-                  {t('phone')} {sortConfig.key === 'phone' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => sortData('created_at')}>
-                  {t('created_at')} {sortConfig.key === 'created_at' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => sortData('last_date_connection')}>
-                  {t('last_date_connection')} {sortConfig.key === 'last_date_connection' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => sortData('date_of_birth')}>
-                  {t('date_of_birth')} {sortConfig.key === 'date_of_birth' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => sortData('role')}>
-                  {t('role')} {sortConfig.key === 'role' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => sortData('country')}>
-                  {t('country')} {sortConfig.key === 'country' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                  </th>                  
-                  <th onClick={() => sortData('city')}>
-                  {t('city')} {sortConfig.key === 'city' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => sortData('description')}>
-                  {t('description')} {sortConfig.key === 'description' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                  </th>
-                  <th>{t('actions')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentClients.map((client, index) => (
-                  <tr key={index}>
-                    <td>{client.userId}</td>
-                    <td>{client.first_name}</td>
-                    <td>{client.last_name}</td>
-                    <td>{client.email}</td>
-                    <td>{client.phone || t('n_a')}</td>
-                    <td>{new Date(client.created_at).toLocaleString()}</td>
-                    <td>{client.last_date_connection ? new Date(client.last_date_connection).toLocaleString() : "-"}</td>
-                    <td>{new Date(client.date_of_birth).toLocaleDateString('en-US', {  year: 'numeric',  month: 'long',  day: 'numeric',})}</td>
-                    <td>{client.role}</td>
-                    <td>{client.country}</td>
-                    <td>{client.city}</td>    
-                    <td>{client.description || t('n_a')}</td>
-                    <td>
-                      <button className="btn btn-warning btn-sm" onClick={() => handleEdit(client)}>
-                        {t('edit')}
-                      </button>
-                    </td>
+          <div class="table-scroll-container">
+              <table className="table table-striped table-hover">
+                <thead className="thead-dark">
+                  <tr>
+                    <th onClick={() => sortData('userId')}>
+                      {t('userId')} {sortConfig.key === 'userId' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                    </th>
+                    <th onClick={() => sortData('first_name')}>
+                      {t('first_name')} {sortConfig.key === 'first_name' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                    </th>
+                    <th onClick={() => sortData('last_name')}>
+                      {t('last_name')} {sortConfig.key === 'last_name' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                    </th>
+                    <th onClick={() => sortData('email')}>
+                    {t('email')} {sortConfig.key === 'email' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                    </th>
+                    <th onClick={() => sortData('phone')}>
+                    {t('phone')} {sortConfig.key === 'phone' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                    </th>
+                    <th onClick={() => sortData('created_at')}>
+                    {t('created_at')} {sortConfig.key === 'created_at' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                    </th>
+                    <th onClick={() => sortData('last_date_connection')}>
+                    {t('last_date_connection')} {sortConfig.key === 'last_date_connection' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                    </th>
+                    <th onClick={() => sortData('date_of_birth')}>
+                    {t('date_of_birth')} {sortConfig.key === 'date_of_birth' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                    </th>
+                    <th onClick={() => sortData('role')}>
+                    {t('role')} {sortConfig.key === 'role' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                    </th>
+                    <th onClick={() => sortData('country')}>
+                    {t('country')} {sortConfig.key === 'country' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                    </th>                  
+                    <th onClick={() => sortData('city')}>
+                    {t('city')} {sortConfig.key === 'city' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                    </th>
+                    <th onClick={() => sortData('description')}>
+                    {t('description')} {sortConfig.key === 'description' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                    </th>
+                    <th>{t('actions')}</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-
-            <div className="d-flex bd-highlight">
-              {/* Showing range text */}
-              <div className="mb-3 p-2 flex-grow-1 bd-highlight">{showingText}</div>
-
-              <nav aria-label="Page navigation example" className="p-2 bd-highlight">
-                <ul className="pagination justify-content-end">
-                  <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                    <button className="page-link" onClick={() => paginate(currentPage - 1)}>
-                    {t('previous')}
-                    </button>
-                  </li>
-                  {Array.from(
-                    { length: Math.ceil(filteredClients.length / clientsPerPage) },
-                    (_, idx) => (
-                      <li
-                        key={idx}
-                        className={`page-item ${currentPage === idx + 1 ? 'active' : ''}`}
-                      >
-                        <button className="page-link" onClick={() => paginate(idx + 1)}>
-                          {idx + 1}
+                </thead>
+                <tbody>
+                  {currentClients.map((client, index) => (
+                    <tr key={index}>
+                      <td>{client.userId}</td>
+                      <td>{client.first_name}</td>
+                      <td>{client.last_name}</td>
+                      <td>{client.email}</td>
+                      <td>{client.phone || t('n_a')}</td>
+                      <td>{new Date(client.created_at).toLocaleString()}</td>
+                      <td>{client.last_date_connection ? new Date(client.last_date_connection).toLocaleString() : "-"}</td>
+                      <td>{new Date(client.date_of_birth).toLocaleDateString('en-US', {  year: 'numeric',  month: 'long',  day: 'numeric',})}</td>
+                      <td>{client.role}</td>
+                      <td>{client.country}</td>
+                      <td>{client.city}</td>    
+                      <td>{client.description || t('n_a')}</td>
+                      <td>
+                        <button className="btn btn-warning btn-sm" onClick={() => handleEdit(client)}>
+                          {t('edit')}
                         </button>
-                      </li>
-                    )
-                  )}
-                  <li
-                    className={`page-item ${
-                      currentPage === Math.ceil(filteredClients.length / clientsPerPage) ? 'disabled' : ''
-                    }`}
-                  >
-                    <button className="page-link" onClick={() => paginate(currentPage + 1)}>
-                      {t('next')}
-                    </button>
-                  </li>
-                </ul>
-              </nav>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            
+              <div className="d-flex bd-highlight">
+                {/* Showing range text */}
+                <div className="mb-3 p-2 flex-grow-1 bd-highlight">{showingText}</div>
+
+                <nav aria-label="Page navigation example" className="p-2 bd-highlight">
+                  <ul className="pagination justify-content-end">
+                    <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                      <button className="page-link" onClick={() => paginate(currentPage - 1)}>
+                      {t('previous')}
+                      </button>
+                    </li>
+                    {Array.from(
+                      { length: Math.ceil(filteredClients.length / clientsPerPage) },
+                      (_, idx) => (
+                        <li
+                          key={idx}
+                          className={`page-item ${currentPage === idx + 1 ? 'active' : ''}`}
+                        >
+                          <button className="page-link" onClick={() => paginate(idx + 1)}>
+                            {idx + 1}
+                          </button>
+                        </li>
+                      )
+                    )}
+                    <li
+                      className={`page-item ${
+                        currentPage === Math.ceil(filteredClients.length / clientsPerPage) ? 'disabled' : ''
+                      }`}
+                    >
+                      <button className="page-link" onClick={() => paginate(currentPage + 1)}>
+                        {t('next')}
+                      </button>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
             </div>
           </>
         ) : (
