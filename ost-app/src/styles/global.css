@@ -448,3 +448,22 @@ body {
     width: 100%;  /* Make the fields full width on small screens */
   }
 }
+
+/*#region FullScreen function Style*/
+.manageSubcategoriesModel.fullscreen-mode {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 1050; /* поверх всего */
+  background-color: white;
+  overflow: auto;
+  padding: 20px;
+}
+
+.manageSubcategoriesModel.fullscreen-mode .card {
+  height: 100%;
+}
+
+/*#endregion*/

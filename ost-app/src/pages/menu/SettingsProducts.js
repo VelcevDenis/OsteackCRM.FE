@@ -17,6 +17,7 @@ function CategoryManager() {
   const [updatedSubcategoryName, setUpdatedSubcategoryName] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   useEffect(() => {
     fetchCategories();
@@ -85,15 +86,18 @@ function CategoryManager() {
       setSuccess(t('subcategory_created'));
   
       // Manually add the new subcategory to the existing state
-      setSubcategories((prevSubcategories) => [
-        { id: response.data.id, name: newSubcategory.name, count:newSubcategory.count, 
-          length:newSubcategory.length,
-          width:newSubcategory.width,
-          height:newSubcategory.height,
-          price_per_piece:newSubcategory.price_per_piece,
-           category_id: newSubcategory.categoryId },
-        ...prevSubcategories
-      ]);
+        setSubcategories((prevSubcategories) => [
+          { id: response.data.id, name: newSubcategory.name, count:newSubcategory.count, 
+            length:newSubcategory.length,
+            width:newSubcategory.width,
+            height:newSubcategory.height,
+            price_per_piece:newSubcategory.price_per_piece,
+            category_id: newSubcategory.categoryId,
+            balance:newSubcategory.balance,
+            m3:newSubcategory.m3
+          },
+          ...prevSubcategories
+        ]);
       
   
       // Keep the selected category but clear the subcategory name
@@ -311,10 +315,19 @@ function CategoryManager() {
 {/* sub category model */}
 
         {/* Subcategory Section */}
-        <div className="col-md-8">
+        <div className={`col-md-8 manageSubcategoriesModel position-relative ${isFullScreen ? 'fullscreen-mode' : ''}`}>
           <div className="card shadow-lg border-0">
-            <div className="card-header bg-secondary text-white text-center">
-              <h3 className="fw-bold">{t('manage_subcategories')}</h3>
+            <div className="card-header bg-secondary text-white text-center d-flex justify-content-between align-items-center">
+              <h3 className="fw-bold mb-0">{t('manage_subcategories')}</h3>
+              <button
+                type="button"
+                className="btn btn-light btn-sm position-absolute top-0 end-0 me-2 mt-2 p-1"
+                style={{ width: '28px', height: '28px', borderRadius: '50%' }}
+                onClick={() => setIsFullScreen(!isFullScreen)}
+                title={isFullScreen ? t('exit_fullscreen') : t('fullscreen')}
+              >
+                {isFullScreen ? '✕' : '⛶'}
+              </button>
             </div>
             <div className="card-body">
               <form onSubmit={handleCreateSubcategory} className="mb-3">
@@ -376,43 +389,49 @@ function CategoryManager() {
                   <button type="submit" className="btn btn-dark">{t('add_subcategory')}</button>
                 </div>
               </form>
-              <table className="table table-bordered">
-                <thead className="thead-light">
-                  <tr>
-                    <th>{t('subcategory')}</th>
-                    <th className="text-center" style={{ width: '80px' }}>{t('length')}</th>
-                    <th className="text-center" style={{ width: '80px' }}>{t('width')}</th>
-                    <th className="text-center" style={{ width: '80px' }}>{t('height')}</th>
-                    <th className="text-center" style={{ width: '80px' }}>{t('price_per_piece')}</th>
-                    <th className="text-center" style={{ width: '80px' }}>{t('count')}</th>
-                    <th className="text-center" style={{ width: '80px' }}>{t('booked')}</th>
-                    <th className="text-center" style={{ width: '160px' }}>{t('actions')}</th>
-                  </tr>
-                </thead>
-
-                {/* Table Body */}
-                <tbody>
-                  {subcategories.map((subcategory) => (
-                    <tr key={subcategory.id}>
-                      <td>{subcategory.name}</td>
-                      <td className="text-center">{subcategory.length}</td>
-                      <td className="text-center">{subcategory.width}</td>
-                      <td className="text-center">{subcategory.height}</td>
-                      <td className="text-center">{subcategory.price_per_piece}</td>
-                      <td className="text-center">{subcategory.count}</td>
-                      <td className="text-center">{subcategory.booked}</td>
-                      <td className="d-flex gap-2 align-items-center">
-                        <button className="btn btn-primary btn-sm" onClick={() => handleEditSubcategory(subcategory)}>
-                          {t('edit')}
-                        </button>
-                        <button className="btn btn-danger btn-sm" onClick={() => handleDeleteSubcategory(subcategory.id)}>
-                          <i className="fas fa-trash-alt me-1"></i> {t('delete')}
-                        </button>
-                      </td>
+              <div className="table-responsive">
+              <div className="table-scroll-vertical">
+                <table className="table table-bordered">
+                  <thead className="thead-light">
+                    <tr>
+                      <th>{t('subcategory')}</th>
+                      <th className="text-center" style={{ width: '80px' }}>{t('length')}</th>
+                      <th className="text-center" style={{ width: '80px' }}>{t('width')}</th>
+                      <th className="text-center" style={{ width: '80px' }}>{t('height')}</th>
+                      <th className="text-center" style={{ width: '80px' }}>{t('price_per_piece')}</th>
+                      <th className="text-center" style={{ width: '80px' }}>{t('count')}</th>
+                      <th className="text-center" style={{ width: '80px' }}>{t('booked')}</th>
+                      <th className="text-center" style={{ width: '80px' }}>{t('balance')}</th>
+                      <th className="text-center" style={{ width: '80px' }}>{t('m3')}</th>
+                      <th className="text-center" style={{ width: '160px' }}>{t('actions')}</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {subcategories.map((subcategory) => (
+                      <tr key={subcategory.id}>
+                        <td>{subcategory.name}</td>
+                        <td className="text-center">{subcategory.length}</td>
+                        <td className="text-center">{subcategory.width}</td>
+                        <td className="text-center">{subcategory.height}</td>
+                        <td className="text-center">{subcategory.price_per_piece}</td>
+                        <td className="text-center">{subcategory.count}</td>
+                        <td className="text-center">{subcategory.booked}</td>
+                        <td className="text-center">{subcategory.balance}</td>
+                        <td className="text-center">{subcategory.m3}</td>
+                        <td className="d-flex gap-2 align-items-center">
+                          <button className="btn btn-primary btn-sm" onClick={() => handleEditSubcategory(subcategory)}>
+                            {t('edit')}
+                          </button>
+                          <button className="btn btn-danger btn-sm" onClick={() => handleDeleteSubcategory(subcategory.id)}>
+                            <i className="fas fa-trash-alt me-1"></i> {t('delete')}
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              </div>
             </div>
           </div>
         </div>

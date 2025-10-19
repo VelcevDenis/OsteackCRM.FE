@@ -123,7 +123,10 @@
   "booked": "Забронировано",
   "new_subcategory_count": "Количество подкатегорий",
   "price_per_piece": "Цена за штуку",
-  "total_price": "Общая цена"
-
-  }
-  
+  "total_price": "Общая цена",
+  "SettingsProducts": "Настройки Продуктов",
+  "balance": "Остаток",
+  "m3": "m³",
+  "exit_fullscreen":"Свернуть",
+  "fullscreen":"Развернуть"
+  }  

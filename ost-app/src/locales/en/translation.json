@@ -121,9 +121,10 @@
   "booked": "Booked",
   "new_subcategory_count": "Sub Category Count",
   "price_per_piece": "Price Per Piece",
-  "total_price": "Total Price"
-
+  "total_price": "Total Price",
+  "SettingsProducts": "Settings Products",
+  "balance": "Balance",
+  "m3": "m³",
+  "exit_fullscreen":"Exit Full screen",
+  "fullscreen":"Full screen"
   }
-
-  
-  
