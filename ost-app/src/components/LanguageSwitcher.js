@@ -17,7 +17,7 @@ function LanguageSwitcher() {
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        🌐 {t('language')}
+        🌐
       </button>
       <ul className="dropdown-menu" aria-labelledby="languageDropdown">
         <li>
@@ -33,7 +33,7 @@ function LanguageSwitcher() {
             className="dropdown-item"
             onClick={() => changeLanguage('en')}
           >
-            🇬🇧 English
+            en English
           </button>
         </li>        
       </ul>

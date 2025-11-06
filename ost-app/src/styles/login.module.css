@@ -1,0 +1,187 @@
+/* --- Overall Container --- */
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;  
+  background: linear-gradient(135deg, #00B4DB 0%, #0083B0 50%, #6DD5FA 100%);  
+  font-family: "Inter", sans-serif;
+  padding: 1rem;
+}
+
+/* --- Login Card --- */
+.loginCard {
+  background: #ffffff;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* --- Heading --- */
+.loginCard h2 {
+  margin-bottom: 1.5rem;
+  color: #222;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+/* --- Input Groups --- */
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+
+.inputGroup label {
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1.5px solid #ccc;
+  border-radius: 0.6rem;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.inputGroup input:focus {
+  outline: none;
+  border-color: #2575fc;
+  box-shadow: 0 0 5px rgba(37, 117, 252, 0.3);
+}
+
+/* --- Button --- */
+.btn {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.6rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn.btn-primary {
+  background-color: #2575fc;
+  color: #fff;
+}
+
+.btn.btn-primary:hover:not(:disabled) {
+  background-color: #1e63d6;
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* --- Error Message --- */
+.errorMessage {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #d9534f;
+  text-align: center;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  .loginCard {
+    padding: 2rem 1.5rem;
+  }
+
+  .loginCard h2 {
+    font-size: 1.5rem;
+  }
+
+  .inputGroup input {
+    font-size: 0.95rem;
+  }
+
+  .btn {
+    font-size: 0.95rem;
+  }
+}
+
+/* --- Simple Fade Animation --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* разместим переключатель вверху карточки */
+.topBar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.75rem;
+  position: absolute;
+  right: 15px;
+  top: 30px;
+}
+
+/* небольшая полировка карточки на очень узких экранах */
+@media (max-width: 360px) {
+  .loginCard {
+    border-radius: 1rem;
+  }
+}
+
+
+/* контейнер карточки уже есть */
+.loginCard {
+  position: relative; /* понадобится для абсолютного позиционирования логотипа на десктопе */
+}
+
+/* по умолчанию (мобильная версия): логотип внутри карточки слева сверху */
+.logoWrap {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.logo {
+  height: 40px;              /* подбери размер */
+  width: auto;
+  object-fit: contain;
+}
+
+/* на очень узких — немного уменьшим */
+@media (max-width: 360px) {
+  .logo { height: 34px; }
+}
+
+/* ДЕСКТОП: вынесем логотип над карточкой и выровняем по центру */
+@media (min-width: 992px) {
+  .loginCard {
+    padding-top: 3.5rem;       /* чтобы внутри карточки был отступ под «шапку» */
+  }
+
+  .logoWrap {
+    position: absolute;
+    top: -100px;                /* подними над карточкой */
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 0;          /* тут уже не нужен */
+  }
+
+  .logo {
+    height: 56px;              /* крупнее на десктопе */
+  }
+}

@@ -1,0 +1,828 @@
+:root {
+  --radius: 14px;
+}
+
+/* THEME TOKENS */
+.dark {
+  --bg: #101114;
+  --panel: #181a20;
+  --panel-2: #1f2230;
+  --text: #e9eef5;
+  --muted: #a6b0c3;
+  --accent: #5b8cff;
+  --accent-2: #6a11cb;
+  --outline: rgba(255, 255, 255, 0.08);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.light {
+  --bg: #f5f7fb;
+  --panel: #ffffff;
+  --panel-2: #f0f3fa;
+  --text: #111318;
+  --muted: #4b5563;
+  --accent: #2575fc;
+  --accent-2: #6a11cb;
+  --outline: rgba(0, 0, 0, 0.08);
+  --shadow: 0 12px 30px rgba(17, 19, 24, 0.08);
+}
+
+/* LAYOUT WRAPPER */
+.wrapper {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "sidebar main";
+  height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* SIDEBAR */
+.sidebar {
+  grid-area: sidebar;
+  width: 290px;
+  max-width: 100vw;
+  background: linear-gradient(135deg, var(--panel) 0%, var(--panel-2) 100%);
+  border-right: 1px solid var(--outline);
+  padding: 16px;
+  box-shadow: var(--shadow);
+  overflow-y: auto;
+  transition: width 0.25s ease;
+}
+.collapsed .sidebar { width: 86px; }
+
+/* header row (toggle + avatar) */
+.headerRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.toggleBtn {
+  background: var(--panel-2);
+  color: var(--text);
+  border: 1px solid var(--outline);
+  font-size: 1.3rem;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  outline: 1px solid var(--outline);
+  cursor: pointer;
+}
+
+.toggleBtn:hover { filter: brightness(1.15); }
+
+.toggleBtn i,
+.toggleBtn .lni {
+  color: var(--text) !important;
+  opacity: 1 !important;
+  transition: color 0.3s ease;
+}
+
+.dark .toggleBtn i,
+.dark .toggleBtn .lni {
+  color: #e9eef5 !important; /* bright white for dark mode */
+}
+
+.light .toggleBtn i,
+.light .toggleBtn .lni {
+  color: #111318 !important; /* dark for light mode */
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+.brand img {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  outline: 1px solid var(--outline);
+}
+.brandMeta { line-height: 1.1; }
+.brandTitle { font-weight: 700; }
+.brandSub { font-size: 0.8rem; color: var(--muted); }
+
+/* search */
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--panel-2);
+  border-radius: var(--radius);
+  outline: 1px solid var(--outline);
+  padding: 10px 12px;
+  margin: 10px 0 14px;
+}
+.searchBox i { opacity: 0.85; }
+.searchBox input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  width: 100%;
+}
+
+/* nav */
+.nav { list-style: none; margin: 8px 0 0; padding: 0; }
+.navItem { margin-bottom: 6px; }
+
+.navLink {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  color: var(--text);
+  border: 0;
+  text-align: left;
+  padding: 12px 12px;
+  border-radius: 12px;
+  outline: 1px solid transparent;
+  cursor: pointer;
+}
+.navLink:hover { background: var(--panel-2); outline-color: var(--outline); }
+.active { background: var(--panel-2); outline: 1px solid var(--outline); }
+.navLink i { font-size: 1.1rem; width: 22px; text-align: center; }
+.navLink span { flex: 1; }
+.chevron { margin-left: auto; }
+
+/* sub-nav */
+.subnav { list-style: none; margin: 2px 0 6px 44px; padding: 0; }
+.subLink {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: var(--muted);
+  border: 0;
+  text-align: left;
+  padding: 8px 8px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.subLink:hover { background: var(--panel-2); color: var(--text); }
+
+/* footer */
+.footer {
+  margin-top: auto;
+  display: grid;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--outline);
+}
+.logout {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  outline: 1px solid transparent;
+  cursor: pointer;
+}
+.logout:hover { background: var(--panel-2); outline-color: var(--outline); }
+
+.themeRow { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.themeLabel { color: var(--muted); }
+
+/* switch */
+.switch { position: relative; width: 54px; height: 30px; display: inline-block; }
+.switch input { display: none; }
+.slider {
+  position: absolute;
+  inset: 0;
+  background: var(--panel-2);
+  border-radius: 999px;
+  outline: 1px solid var(--outline);
+}
+.switch i {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 6px;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+/* когда чекбокс включён (светлая тема) — иконку смещаем вправо */
+.switch input:checked + .slider + i { left: auto; right: 6px; }
+
+/* MAIN */
+.main {
+  grid-area: main;
+  padding: 18px 22px;
+  overflow: auto;
+}
+
+/* collapsed behaviours */
+.collapsed .brandMeta,
+.collapsed .searchBox,
+.collapsed .navLink span,
+.collapsed .themeLabel { display: none; }
+
+
+/* responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    position: static;   
+    height: auto;
+    transition: width .25s ease;
+  }
+
+  .expanded .sidebar { width: 290px; }
+  .collapsed .sidebar { width: 86px; }
+}
+
+.subnav {
+  list-style: none;
+  margin: 0 0 0 44px;
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.25s ease;
+}
+
+.subnav.open {
+  max-height: 500px; /* достаточно, чтобы вместить элементы */
+  opacity: 1;
+}
+
+.chevron {
+  margin-left: auto;
+  transition: transform 0.3s ease;
+}
+
+.chevron.rotated {
+  transform: rotate(90deg);
+}
+
+/* ===== Language switcher (единый стиль с меню) ===== */
+
+.languageRow {
+  margin-top: 6px;
+}
+
+.langRoot {
+  position: relative;
+}
+
+.langBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--panel-2);
+  color: var(--text);
+  border: 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  outline: 1px solid var(--outline);
+  cursor: pointer;
+  transition: filter .2s ease, outline-color .2s ease, background .2s ease;
+}
+.langBtn:hover {
+  filter: brightness(1.05);
+  outline-color: var(--outline);
+}
+.langBtn i { margin-left: auto; opacity: .85; }
+
+.langFlag {
+  font-size: 1rem;
+  line-height: 1;
+}
+.langText {
+  font-size: .95rem;
+}
+
+.rotate180 { transform: rotate(180deg); transition: transform .2s ease; }
+
+.langMenu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 6px);
+  background: var(--panel);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  outline: 1px solid var(--outline);
+  padding: 6px;
+  list-style: none;
+  margin: 0;
+  z-index: 50;
+}
+
+.langItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: var(--text);
+  border: 0;
+  text-align: left;
+  padding: 10px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.langItem:hover {
+  background: var(--panel-2);
+}
+.langItem i {
+  margin-left: auto;
+  opacity: .9;
+}
+
+.langItemActive {
+  background: var(--panel-2);
+  outline: 1px solid var(--outline);
+}
+
+@media (max-width: 768px) {
+  .langMenu {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    top: auto;
+    bottom: 16px;
+    max-height: 40vh;
+    overflow: auto;
+    z-index: 2000;
+  }
+}
+
+/* родитель для якоря абсолютного позиционирования */
+.collapsed .navItem {
+  position: relative;
+  overflow: visible;
+}
+
+/* флайаут подменю в свернутом режиме */
+.collapsed .subnav {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 86px;
+  margin: 0;
+  width: 220px;
+  background: var(--panel);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  outline: 1px solid var(--outline);
+  padding: 6px;
+  z-index: 60;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height .3s ease, opacity .25s ease;
+}
+
+/* когда пункт открыт */
+.collapsed .subnav.open {
+  max-height: 500px;
+  opacity: 1;
+}
+
+/* текст внутри пунктов подменю должен быть виден */
+.collapsed .subnav .subLink span {
+  display: inline;
+}
+
+/* создаём нормальный слой для всего меню */
+.sidebar {
+  position: relative;
+  z-index: 100;
+  overflow: visible;
+}
+
+/* подменю — поверх даже футера/мэйна */
+.subnav,
+.collapsed .subnav {
+  z-index: 2000;
+}
+
+/* ========= Dark theme overrides for Bootstrap content ========= */
+/* ВАЖНО: это CSS Modules, поэтому применяем :global для bootstrap-классов */
+
+.dark :global(.bg-light) {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-color: var(--outline) !important;
+}
+
+/* Каркасы/контейнеры */
+.dark :global(.border) { border-color: var(--outline) !important; }
+.dark :global(.card),
+.dark :global(.table-responsive),
+.dark :global(.table-scroll-container) {
+  background: var(--panel);
+  border: 1px solid var(--outline);
+  box-shadow: var(--shadow);
+}
+
+/* Заголовки */
+.dark :global(h1), 
+.dark :global(h2), 
+.dark :global(h3), 
+.dark :global(label) {
+  color: var(--text);
+}
+
+/* Формы */
+.dark :global(.form-control),
+.dark :global(.form-select) {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--outline) !important;
+}
+.dark :global(.form-control::placeholder) { color: var(--muted) !important; }
+.dark :global(.form-control:focus),
+.dark :global(.form-select:focus) {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 0.2rem rgba(91, 140, 255, 0.25) !important;
+}
+
+/* Кнопки */
+.dark :global(.btn) { border-color: transparent; }
+.dark :global(.btn-primary) { background: var(--accent) !important; color: #fff !important; }
+.dark :global(.btn-success) { background: #25a055 !important; color: #fff !important; }
+.dark :global(.btn-warning) { background: #e7a23c !important; color: #111 !important; }
+.dark :global(.btn-danger) { background: #e05656 !important; color: #fff !important; }
+.dark :global(.btn-outline-secondary),
+.dark :global(.btn-light) {
+  background: var(--panel-2) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--outline) !important;
+}
+
+/* Таблица */
+.dark :global(table.table) {
+  color: var(--text);
+  background: var(--panel);
+  border-color: var(--outline);
+}
+.dark :global(.table thead),
+.dark :global(.table .thead-dark) {
+  background: var(--panel-2);
+  color: var(--text);
+  border-bottom: 1px solid var(--outline);
+}
+.dark :global(.table-striped tbody tr:nth-of-type(odd)) { background: rgba(255,255,255,0.02); }
+.dark :global(.table-hover tbody tr:hover) { background: rgba(255,255,255,0.05); }
+.dark :global(.table td),
+.dark :global(.table th) { border-color: var(--outline) !important; }
+
+/* Пагинация */
+.dark :global(.pagination .page-link) {
+  background: var(--panel-2);
+  color: var(--text);
+  border: 1px solid var(--outline);
+}
+.dark :global(.pagination .page-item.active .page-link) {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.dark :global(.pagination .page-item.disabled .page-link) {
+  background: var(--panel);
+  color: var(--muted);
+}
+
+/* Алёрты */
+.dark :global(.alert-success) {
+  background: rgba(37, 160, 85, 0.12);
+  border: 1px solid rgba(37,160,85,0.35);
+  color: #c7f0d8;
+}
+.dark :global(.alert-danger) {
+  background: rgba(224, 86, 86, 0.12);
+  border: 1px solid rgba(224,86,86,0.35);
+  color: #ffd7d7;
+}
+
+/* Выпадающие списки/меню */
+.dark :global(.dropdown-menu) { background: var(--panel); border: 1px solid var(--outline); color: var(--text); }
+.dark :global(.dropdown-item) { color: var(--text); }
+.dark :global(.dropdown-item:hover),
+.dark :global(.dropdown-item:focus) { background: var(--panel-2); color: var(--text); }
+
+.dark :global(.form-text), 
+.dark :global(.text-muted) { color: var(--muted) !important; }
+
+/* ===== Dark theme — better table look ===== */
+.dark :global(.table-scroll-container) {
+  background: var(--panel);
+  border: 1px solid var(--outline);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.dark :global(table.table) { margin-bottom: 0; color: var(--text); background: var(--panel); }
+
+.dark :global(.table thead th) {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: linear-gradient(0deg, var(--panel-2), var(--panel-2));
+  color: var(--text);
+  border-bottom: 1px solid var(--outline) !important;
+  font-weight: 600;
+  letter-spacing: .02em;
+  white-space: nowrap;
+}
+
+.dark :global(.table td),
+.dark :global(.table th) { border-color: var(--outline) !important; vertical-align: middle; }
+.dark :global(.table-striped tbody tr:nth-of-type(odd)) { background: rgba(255, 255, 255, 0.025); }
+.dark :global(.table-hover tbody tr:hover) { background: rgba(91, 140, 255, 0.08); }
+.dark :global(.table .text-muted) { color: var(--muted) !important; }
+
+.dark :global(.table > :not(caption) > * > th),
+.dark :global(.table > :not(caption) > * > td) { padding-top: .65rem; padding-bottom: .65rem; }
+
+.dark :global(.table .btn-warning) {
+  background: #f1b24a !important;
+  border-color: #f1b24a !important;
+  color: #222 !important;
+}
+.dark :global(.table .btn-danger) {
+  background: #e66565 !important;
+  border-color: #e66565 !important;
+  color: #fff !important;
+}
+.dark :global(.table .btn-warning:hover) { filter: brightness(0.95); }
+.dark :global(.table .btn-danger:hover) { filter: brightness(1.05); }
+
+.dark :global(.pagination .page-link) { background: var(--panel-2); color: var(--text); border: 1px solid var(--outline); }
+.dark :global(.pagination .page-item.active .page-link) { background: var(--accent); border-color: var(--accent); color: #fff; }
+.dark :global(.pagination .page-item.disabled .page-link) { background: var(--panel); color: var(--muted); }
+
+.dark :global(.table > :not(caption) > * > *) { background-color: transparent !important; }
+
+/* ===== Dark theme — improve text visibility inside table ===== */
+.dark :global(.table td),
+.dark :global(.table th) { color: #e5e9f2 !important; }
+.dark :global(.text-muted),
+.dark :global(.table .text-muted) { color: #9ca3af !important; }
+.dark :global(.table thead th) {
+  color: #f8fafc !important;
+  background: linear-gradient(0deg, #1d2030, #1f2235) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+.dark :global(.table-striped tbody tr:nth-of-type(odd)) { background: rgba(255, 255, 255, 0.03); color: #e5e9f2; }
+.dark :global(.table-hover tbody tr:hover) { background: rgba(91, 140, 255, 0.1); color: #ffffff; }
+.dark :global(th) { text-transform: none; letter-spacing: 0.01em; }
+.dark :global(.btn-warning) { color: #1e1e1e !important; font-weight: 500; }
+.dark :global(.btn-danger) { color: #fff !important; font-weight: 500; }
+
+.dark :global(.table-scroll-container),
+.dark :global(.pagination),
+.dark :global(.form-label),
+.dark :global(.form-control),
+.dark :global(label) { color: #e8ebf3 !important; }
+
+/* ===== Dark theme — SettingsProducts page (cards, lists, table, modals) ===== */
+.dark :global(.card) { background: var(--panel); border: 1px solid var(--outline); color: var(--text); box-shadow: var(--shadow); border-radius: 14px; }
+.dark :global(.card-header) { background: var(--panel-2) !important; color: var(--text) !important; border-bottom: 1px solid var(--outline) !important; }
+.dark :global(.list-group-item) { background: var(--panel); color: var(--text); border-color: var(--outline); }
+.dark :global(.list-group-item + .list-group-item) { border-top-color: var(--outline); }
+
+.dark :global(.input-group .form-control),
+.dark :global(.input-group .form-select),
+.dark :global(.form-control),
+.dark :global(.form-select) { background: var(--panel-2) !important; color: var(--text) !important; border: 1px solid var(--outline) !important; }
+.dark :global(.form-control::placeholder) { color: var(--muted) !important; }
+.dark :global(.form-control:focus),
+.dark :global(.form-select:focus) { border-color: var(--accent) !important; box-shadow: 0 0 0 0.2rem rgba(91,140,255,.25) !important; }
+
+.dark :global(.btn-primary) { background: var(--accent) !important; border-color: var(--accent) !important; color: #fff !important; }
+.dark :global(.btn-secondary) { background: #6b7280 !important; border-color: #6b7280 !important; color: #fff !important; }
+.dark :global(.btn-dark) { background: var(--panel-2) !important; border-color: var(--outline) !important; color: var(--text) !important; }
+.dark :global(.btn-danger) { background: #e66565 !important; border-color: #e66565 !important; color: #fff !important; }
+.dark :global(.btn-light) { background: var(--panel-2) !important; border-color: var(--outline) !important; color: var(--text) !important; }
+
+.dark :global(.table-responsive),
+.dark :global(.table-scroll-vertical) {
+  background: var(--panel);
+  border: 1px solid var(--outline);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.dark :global(table.table) { color: var(--text); background: var(--panel); margin-bottom: 0; }
+.dark :global(.table thead th),
+.dark :global(.thead-light th) {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--panel-2) !important;
+  color: #f8fafc !important;
+  border-bottom: 1px solid var(--outline) !important;
+  font-weight: 600;
+}
+.dark :global(.table-bordered) { border-color: var(--outline) !important; }
+.dark :global(.table-bordered td),
+.dark :global(.table-bordered th) { border-color: var(--outline) !important; }
+.dark :global(.table tbody tr:nth-of-type(odd)) { background: rgba(255,255,255,.03); }
+.dark :global(.table tbody tr:hover) { background: rgba(91,140,255,.08); }
+
+.dark :global(.table-responsive::-webkit-scrollbar),
+.dark :global(.table-scroll-vertical::-webkit-scrollbar) { height: 8px; width: 8px; }
+.dark :global(.table-responsive::-webkit-scrollbar-track),
+.dark :global(.table-scroll-vertical::-webkit-scrollbar-track) { background: var(--panel); }
+.dark :global(.table-responsive::-webkit-scrollbar-thumb),
+.dark :global(.table-scroll-vertical::-webkit-scrollbar-thumb) { background: var(--panel-2); border-radius: 8px; border: 1px solid var(--outline); }
+
+.dark :global(.modal-content) {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--outline);
+  box-shadow: var(--shadow);
+}
+.dark :global(.modal-header),
+.dark :global(.modal-footer) { background: var(--panel-2); border-color: var(--outline); }
+.dark :global(.modal-title) { color: var(--text); }
+.dark :global(.btn-close) { filter: invert(1) grayscale(100%); }
+.dark :global(.modal-body .form-label),
+.dark :global(.card .form-label) { color: var(--text); }
+
+/* =========================================================================
+   Фулл-скрин для правой карточки (manageSubcategoriesModel)
+   ========================================================================= */
+:global(.manageSubcategoriesModel.fullscreen-mode) { position: fixed !important; inset: 16px 16px 16px 340px; z-index: 1500; }
+:global(.manageSubcategoriesModel.fullscreen-mode .card) { height: 100%; }
+:global(.manageSubcategoriesModel.fullscreen-mode .card-body) { display: flex; flex-direction: column; }
+:global(.manageSubcategoriesModel.fullscreen-mode .table-responsive),
+:global(.manageSubcategoriesModel.fullscreen-mode .table-scroll-vertical) { flex: 1 1 auto; }
+
+.dark :global(.card-header h3) { color: #f1f5f9 !important; }
+.dark :global(.form-text), 
+.dark :global(.text-muted) { color: var(--muted) !important; }
+
+/* ===== Fix: scrollbars in dark theme ===== */
+.dark :global(.table-responsive),
+.dark :global(.table-scroll-vertical) {
+  overflow: auto !important;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable both-edges;
+}
+.dark :global(.table-responsive::-webkit-scrollbar),
+.dark :global(.table-scroll-vertical::-webkit-scrollbar) { width: 10px; height: 10px; }
+.dark :global(.table-responsive::-webkit-scrollbar-track),
+.dark :global(.table-scroll-vertical::-webkit-scrollbar-track) {
+  background: #0f1116;
+  border: 1px solid var(--outline);
+  border-radius: 8px;
+}
+.dark :global(.table-responsive::-webkit-scrollbar-thumb),
+.dark :global(.table-scroll-vertical::-webkit-scrollbar-thumb) {
+  background: #9aa4b2;
+  border-radius: 8px;
+  border: 2px solid #0f1116;
+}
+.dark :global(.table-responsive::-webkit-scrollbar-thumb:hover),
+.dark :global(.table-scroll-vertical::-webkit-scrollbar-thumb:hover) { background: #b9c2cf; }
+
+.dark :global(.table-responsive),
+.dark :global(.table-scroll-vertical) { scrollbar-width: thin; scrollbar-color: #9aa4b2 #0f1116; }
+.dark :global(.table-responsive),
+.dark :global(.table-scroll-vertical) { scrollbar-gutter: stable !important; padding: 0 !important; }
+
+/* чтобы токены подхватывались и от body-класса */
+body.dark { 
+  --bg:#101114; --panel:#181a20; --panel-2:#1f2230; --text:#e9eef5; --muted:#a6b0c3;
+  --accent:#5b8cff; --accent-2:#6a11cb; --outline:rgba(255,255,255,.08); --shadow:0 10px 30px rgba(0,0,0,.35);
+}
+body.light { 
+  --bg:#f5f7fb; --panel:#fff; --panel-2:#f0f3fa; --text:#111318; --muted:#4b5563;
+  --accent:#2575fc; --accent-2:#6a11cb; --outline:rgba(0,0,0,.08); --shadow:0 12px 30px rgba(17,19,24,.08);
+}
+
+/* ===== Ограничение видимых строк / скролл ===== */
+:root{
+  --rows: 6;
+  --list-row-h: 48px;
+  --tbl-row-h: 46px;
+  --tbl-head-h: 54px;
+}
+
+:global(.card.stretch){ display:flex; flex-direction:column; min-height:0; }
+:global(.card.stretch .card-body){ display:flex; flex-direction:column; gap:12px; min-height:0; }
+
+:global(.list-window){ max-height: calc(var(--list-row-h) * var(--rows)); overflow:auto; border-radius: 8px; }
+:global(.list-window .list-group-item){ padding-top:.5rem; padding-bottom:.5rem; height: var(--list-row-h); }
+
+:global(.table-window){
+  max-height: calc(var(--tbl-head-h) + var(--tbl-row-h) * var(--rows));
+  overflow:auto;
+  border-radius:8px;
+}
+/* ЗДЕСЬ ИСПРАВЛЕНО: фону не inherit, а явный — чтобы заголовок был видим */
+:global(.table-window thead th){
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--panel-2); /* fix */
+}
+
+:global(.table-window table.table > :not(caption) > * > td),
+:global(.table-window table.table > :not(caption) > * > th){
+  padding-top:.5rem;
+  padding-bottom:.5rem;
+  height: var(--tbl-row-h);
+  vertical-align: middle;
+}
+
+:global(.list-window::-webkit-scrollbar),
+:global(.table-window::-webkit-scrollbar){height:8px;width:8px}
+:global(.list-window::-webkit-scrollbar-thumb),
+:global(.table-window::-webkit-scrollbar-thumb){border-radius:8px}
+
+@media (max-height: 820px){
+  :global(.list-window){
+    max-height: clamp(calc(var(--list-row-h) * 3), 50vh, calc(var(--list-row-h) * var(--rows)));
+  }
+  :global(.table-window){
+    max-height: clamp(calc(var(--tbl-head-h) + var(--tbl-row-h) * 3), 55vh, calc(var(--tbl-head-h) + var(--tbl-row-h) * var(--rows)));
+  }
+}
+
+/* Жёлтые "Редактировать" в тёмной теме */
+.dark :global(.list-group .btn-primary),
+.dark :global(.table .btn-primary) {
+  background: #f1b24a !important;
+  border-color: #f1b24a !important;
+  color: #1e1e1e !important;
+  font-weight: 600;
+}
+.dark :global(.list-group .btn-primary:hover),
+.dark :global(.table .btn-primary:hover) { filter: brightness(0.95); }
+.dark :global(.list-group .btn-primary:focus),
+.dark :global(.table .btn-primary:focus) { box-shadow: 0 0 0 0.2rem rgba(241, 178, 74, 0.35) !important; }
+.dark :global(.list-group .btn-primary:active),
+.dark :global(.table .btn-primary:active) { filter: brightness(0.9); }
+
+/* Единая обёртка для любых таблиц со скроллом */
+:global(.table-scroll) {
+  overflow: auto;
+  max-height: 60vh;
+  width: 100%;
+  border-radius: 12px;
+  background: var(--panel);
+  border: 1px solid var(--outline);
+}
+:global(.table-scroll > .table) { margin-bottom: 0; width: 100%; }
+:global(.table-scroll thead th) { position: sticky; top: 0; z-index: 2; background: var(--panel-2) !important; }
+
+.dark :global(.table-scroll) { scrollbar-width: thin; scrollbar-color: #9aa4b2 #0f1116; }
+.dark :global(.table-scroll::-webkit-scrollbar) { width:10px; height:10px; }
+.dark :global(.table-scroll::-webkit-scrollbar-track) { background:#0f1116; border:1px solid var(--outline); border-radius:8px; }
+.dark :global(.table-scroll::-webkit-scrollbar-thumb) { background:#9aa4b2; border-radius:8px; border:2px solid #0f1116; }
+
+.light :global(.table-scroll) { scrollbar-width: thin; scrollbar-color: #b5bcc7 #e9edf5; }
+.light :global(.table-scroll::-webkit-scrollbar) { width:10px; height:10px; }
+.light :global(.table-scroll::-webkit-scrollbar-track) { background:#e9edf5; border:1px solid rgba(0,0,0,.08); border-radius:8px; }
+.light :global(.table-scroll::-webkit-scrollbar-thumb) { background:#b5bcc7; border-radius:8px; border:2px solid #e9edf5; }
+
+/* Показываем подменю только при наведении (в свернутом сайдбаре) */
+.collapsed .navItem:hover .subnav { max-height: 500px; opacity: 1; pointer-events: auto; }
+.collapsed .navItem:not(:hover) .subnav { max-height: 0; opacity: 0; pointer-events: none; }
+.subnav { transition: max-height 0.3s ease, opacity 0.25s ease; }
+
+/* === ЕДИНЫЕ стили заголовков и отступов таблиц для ОБЕИХ тем (равенство со светлой) === */
+:global(.table > :not(caption) > * > th),
+:global(.table > :not(caption) > * > td) {
+  padding: .5rem .75rem; /* как в светлой теме Bootstrap */
+}
+
+/* Светлая: явно задаём фон и цвет заголовков, чтобы поведение было одинаковым */
+.light :global(.table thead th),
+.light :global(.thead-dark th),
+.light :global(.table .thead-dark th) {
+  background: #f8f9fa !important;
+  color: #111318 !important;
+  border-bottom: 1px solid rgba(0,0,0,.08) !important;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+/* Тёмная: то же самое, только с тёмными токенами */
+.dark :global(.table thead th),
+.dark :global(.thead-dark th),
+.dark :global(.table .thead-dark th),
+.dark :global(.table-dark thead th) {
+  background: var(--panel-2) !important;
+  color: #e9eef5 !important;
+  border-bottom: 1px solid var(--outline) !important;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}

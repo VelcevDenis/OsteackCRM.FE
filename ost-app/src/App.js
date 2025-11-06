@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import './styles/global.css';
 
 import Login from './pages/Login';
 import NotFound from "./pages/NotFound";
@@ -14,7 +15,6 @@ import Settings from "./pages/menu/Settings";
 import SettingsProducts from "./pages/menu/SettingsProducts";
 // import { isAuthenticated, getUserRole } from './utils/authHelper';
 import { isAuthenticated } from './utils/authHelper';
-import LanguageSwitcher from "./components/LanguageSwitcher";
 
 
 // import { isAuthenticated, getUserRole } from './utils/authHelper';
@@ -30,8 +30,7 @@ import LanguageSwitcher from "./components/LanguageSwitcher";
 
 function App() {  
   return (
-    <Router>
-      <LanguageSwitcher />
+    <Router>      
       <Routes>
         <Route path="/" element={<Login />} />        
         <Route path="/menu/*" element={isAuthenticated() ? <Menu /> : <Login />}>
